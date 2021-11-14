@@ -1,0 +1,82 @@
+services:
+
+  db:
+    container_name: "flask_db"
+    # We use a mariadb image which supports both amd64 & arm64 architecture
+    image: mariadb:10.6.4-focal
+    # If you really want to use MySQL, uncomment the following line
+    #image: mysql:8.0.27
+    command: '--default-authentication-plugin=mysql_native_password'
+    restart: always
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "127.0.0.1", "--silent"]
+      interval: 3s
+      retries: 5
+      start_period: 30s
+    secrets:
+      - db-password
+    volumes:
+      - db-data:/var/lib/mysql
+    networks:
+      - backnet
+    environment:
+      - MYSQL_DATABASE=example
+      - MYSQL_ROOT_PASSWORD_FILE=/run/secrets/db-password
+    expose:
+      - 3306
+      - 33060
+
+  backend:
+    container_name: "flask_backend"
+    build: backend
+    restart: always
+    secrets:
+      - db-password
+    ports:
+      - 5000:5000
+    networks:
+      - backnet
+      - frontnet
+    volumes:
+      - ./backend:/code
+    depends_on:
+      db:
+        condition: service_healthy
+
+  proxy:
+    container_name: "flask_proxy"
+    build: proxy
+    restart: always
+    ports:
+      - 80:80
+    depends_on: 
+      - backend
+    networks:
+      - frontnet
+
+  adminer:
+    container_name: "flask_adminer"
+    image: adminer
+    environment:
+      ADMINER_DEFAULT_DB_DRIVER: mysql
+    restart: always
+    networks:
+      - backnet
+      - frontnet
+    ports:
+      - 8080:8080
+##      # For MariaDB:
+##      ADMINER_DEFAULT_DB_DRIVER: server
+#      ADMINER_DEFAULT_DB_HOST: $DB_HOST
+#      ADMINER_DEFAULT_DB_NAME: $DB_NAME
+#    labels:
+#    - "traefik.http.routers.${PROJECT_NAME}_adminer.rule=Host(`adminer.${PROJECT_BASE_URL}`)"
+
+volumes:
+  db-data:
+secrets:
+  db-password:
+    file: db/password.txt
+networks:
+  backnet:
+  frontnet:
