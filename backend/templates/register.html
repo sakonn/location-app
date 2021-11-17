@@ -1,0 +1,109 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+<section class="section">
+  <div class="container">
+    <form method="POST" action="">
+      {{ form.hidden_tag() }}
+      <fieldset class="form">
+        <legend>Join tobay!</legend>
+        <div class="field">
+          {{ form.username.label(class='label') }}
+
+
+          {% if form.username.errors %}
+            <div class="control has-icons-right">
+              {{ form.username(class='input is-danger') }}
+              <span class="icon is-small is-right">
+                <i class="fas fa-exclamation-triangle"></i>
+              </span>
+            </div>
+            {% for error in form.username.errors %}
+              <p class="help is-danger">{{ error }}</p>
+            {% endfor %}
+          {% else %}
+            <div class="control">
+              {{ form.username(class='input') }}
+            </div>
+          {% endif %}
+        </div>
+        <div class="field">
+          {{ form.email.label(class='label') }}
+
+          {% if form.email.errors %}
+            <div class="control has-icons-right">
+              {{ form.email(class='input is-danger') }}
+              <span class="icon is-small is-right">
+                <i class="fas fa-exclamation-triangle"></i>
+              </span>
+            </div>
+            {% for error in form.email.errors %}
+              <p class="help is-danger">{{ error }}</p>
+            {% endfor %}
+          {% else %}
+            <div class="control">
+              {{ form.email(class='input') }}
+            </div>
+          {% endif %}
+
+        </div>
+        <div class="field">
+          {{ form.password.label(class='label') }}
+
+          {% if form.password.errors %}
+            <div class="control has-icons-right">
+              {{ form.password(class='input is-danger') }}
+              <span class="icon is-small is-right">
+                <i class="fas fa-exclamation-triangle"></i>
+              </span>
+            </div>
+            {% for error in form.password.errors %}
+              <p class="help is-danger">{{ error }}</p>
+            {% endfor %}
+          {% else %}
+            <div class="control">
+              {{ form.password(class='input') }}
+            </div>
+          {% endif %}
+          
+        </div>
+        <div class="field">
+          {{ form.confimPassword.label(class='label') }}
+
+          {% if form.confimPassword.errors %}
+            <div class="control has-icons-right">
+              {{ form.confimPassword(class='input is-danger') }}
+              <span class="icon is-small is-right">
+                <i class="fas fa-exclamation-triangle"></i>
+              </span>
+            </div>
+            {% for error in form.confimPassword.errors %}
+              <p class="help is-danger">{{ error }}</p>
+            {% endfor %}
+          {% else %}
+            <div class="control">
+              {{ form.confimPassword(class='input') }}
+            </div>
+          {% endif %}
+          
+        </div>
+
+        <div class="field is-grouped">
+          <div class="control">
+            {{ form.submit(class="button is-link") }}
+          </div>
+        </div>
+        
+        
+      </fieldset>
+    </form>
+
+    <div class="content">
+      You can login here: <a href="{{ url_for('login') }}">Sign in</a>
+    </div>
+  </div>
+</section>
+  
+{% endblock content %}
+  

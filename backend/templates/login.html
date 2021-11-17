@@ -1,0 +1,88 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+<section class="section">
+  <div class="container">
+    <form method="POST" action="">
+      {{ form.hidden_tag() }}
+      <fieldset class="form">
+        <legend>Login here!</legend>
+        <div class="field">
+          {{ form.email.label(class='label') }}
+
+          {% if form.email.errors %}
+            <div class="control has-icons-right">
+              {{ form.email(class='input is-danger') }}
+              <span class="icon is-small is-right">
+                <i class="fas fa-exclamation-triangle"></i>
+              </span>
+            </div>
+            {% for error in form.email.errors %}
+              <p class="help is-danger">{{ error }}</p>
+            {% endfor %}
+          {% else %}
+            <div class="control">
+              {{ form.email(class='input') }}
+            </div>
+          {% endif %}
+
+        </div>
+        <div class="field">
+          {{ form.password.label(class='label') }}
+
+          {% if form.password.errors %}
+            <div class="control has-icons-right">
+              {{ form.password(class='input is-danger') }}
+              <span class="icon is-small is-right">
+                <i class="fas fa-exclamation-triangle"></i>
+              </span>
+            </div>
+            {% for error in form.password.errors %}
+              <p class="help is-danger">{{ error }}</p>
+            {% endfor %}
+          {% else %}
+            <div class="control">
+              {{ form.password(class='input') }}
+            </div>
+          {% endif %}
+          
+        </div>
+        <div class="field">
+          
+          {% if form.remember.errors %}
+            <div class="control has-icons-right">
+              <div class="control is-danger">
+                {{ form.remember(class='checkbox is-danger') }}
+                {{ form.remember.label(class='checkbox is-danger') }}
+              </div>
+            {% for error in form.remember.errors %}
+              <p class="help is-danger">{{ error }}</p>
+            {% endfor %}
+          {% else %}
+          <div class="control">
+            {{ form.remember(class='checkbox') }}
+            {{ form.remember.label(class='checkbox') }}
+          </div>
+          {% endif %}
+          
+        </div>
+
+        <div class="field is-grouped">
+          <div class="control">
+            {{ form.submit(class="button is-link") }}
+          </div>
+        </div>
+        
+        
+      </fieldset>
+    </form>
+
+    <div class="content">
+      You can register here: <a href="{{ url_for('register') }}">Sign in</a>
+    </div>
+  </div>
+</section>
+  
+{% endblock content %}
+  
