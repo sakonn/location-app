@@ -1,3 +1,4 @@
 .idea/
 mutagen.yml.lock
 __pycache__
+db/
