@@ -11,9 +11,19 @@ class User(db.Model, UserMixin):
   username = db.Column(db.String(20), unique=True, nullable=False)
   email = db.Column(db.String(120), unique=True, nullable=False)
   password = db.Column(db.String(60), nullable=True)
+  keys = db.relationship('ApiKeys', backref='keys', lazy=True)
 
   def __repr__(self):
     return f"User ('{self.username}', '{self.email}')"
+
+class ApiKeys(db.Model, UserMixin):
+  id = db.Column(db.Integer, primary_key=True)
+  name = db.Column(db.String(120), nullable=False)
+  key = db.Column(db.String(32), nullable=True)
+  user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+
+  def __repr__(self):
+    return f"User ('{self.name}', '{self.email}')"
 
 class LocationPoint(db.Model):
   id = db.Column(db.Integer, primary_key=True)

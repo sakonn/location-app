@@ -1,8 +1,9 @@
 from flask import render_template, url_for, flash, redirect, request
 from locationApp import app, db, bcrypt
-from locationApp.forms import RegistrationForm, LoginForm
+from locationApp.forms import RegistrationForm, LoginForm, KeyForm
 from locationApp.models import User, LocationPoint
 from flask_login import login_user, current_user, logout_user, login_required
+import secrets
 
 data = [
   {
@@ -69,7 +70,8 @@ def logout():
   return redirect(url_for('index'))
 
 
-@app.route("/account")
+@app.route("/account", methods=['GET', 'POST'])
 @login_required
 def account():
-  return render_template('account.html', data=data)
+  form = KeyForm()
+  return render_template('account.html', data=data, form=form, key=secrets.token_urlsafe(32))

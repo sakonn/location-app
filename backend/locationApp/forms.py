@@ -2,8 +2,10 @@
 
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField, BooleanField
-from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError
+from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError, Regexp
+from wtforms.widgets.core import DateTimeLocalInput
 from locationApp.models import User
+
 
 class RegistrationForm(FlaskForm):
   username = StringField('Username', validators=[DataRequired(), Length(min=2, max=30)])
@@ -30,3 +32,9 @@ class LoginForm(FlaskForm):
   remember = BooleanField('Remember me')
 
   submit = SubmitField('Log in')
+
+class KeyForm(FlaskForm):
+  name = StringField('Key name', validators=[DataRequired()])
+  key = StringField('Key', validators=[DataRequired()])
+  
+  submit = SubmitField('Save key')
