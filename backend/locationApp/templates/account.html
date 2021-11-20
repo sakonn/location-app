@@ -5,15 +5,20 @@
 <section class="section">
   <div class="container">
   <h1 class="title is-1">Hello {{ current_user.username }}</h1>
-  <div class="columns is-centered">
+  <div class="columns is-centered mt-6">
     <div class="column is-4">
       <h2 class="title is-4">List of keys</h2>
-      
+      <ul>
+        {% for key in keys %}
+          <li>{{ key.name }}</li>
+        {% endfor %}
+      </ul>
     </div>
     <div class="column is-8">
       <form method="POST" action="" class="box">
         <h2 class="title is-4">New key</h2>
         {{ form.hidden_tag() }}
+        {{ form.identifier(hidden=True, value='key_form') }}
         <fieldset class="form">
           <div class="field">
             {{ form.name.label(class='label') }}
@@ -49,7 +54,7 @@
               {% endfor %}
             {% else %}
               <div class="control">
-                {{ form.key(class='input', disabled=True, value=key)  }}
+                {{ form.key(class='input', disabled=True)  }}
               </div>
             {% endif %}
             
@@ -59,6 +64,53 @@
           <div class="field is-grouped">
             <div class="control">
               {{ form.submit(class="button is-link") }}
+            </div>
+          </div>
+          
+          
+        </fieldset>
+      </form>
+    </div>
+  </div>
+  <div class="columns is-centered mt-6">
+    <div class="column is-4">
+      <h2 class="title is-4">List of borrows</h2>
+      <ul>
+        {% for borrow in borrows %}
+          <li>{{ borrow.client }}</li>
+        {% endfor %}
+      </ul>
+    </div>
+    <div class="column is-8">
+      <form method="POST" action="" class="box">
+        <h2 class="title is-4">New Borrow</h2>
+        {{ borrrow_form.hidden_tag() }}
+        {{ borrrow_form.identifier(hidden=True, value='borrrow_form') }}
+        <fieldset class="form">
+          <div class="field">
+            {{ borrrow_form.client.label(class='label') }}
+            {% if borrrow_form.client.errors %}
+              <div class="control has-icons-right">
+                {{ borrrow_form.client(class='input is-danger') }}
+                <span class="icon is-small is-right">
+                  <i class="fas fa-exclamation-triangle"></i>
+                </span>
+              </div>
+              {% for error in borrrow_form.client.errors %}
+                <p class="help is-danger">{{ error }}</p>
+              {% endfor %}
+            {% else %}
+              <div class="control">
+                {{ borrrow_form.client(class='input') }}
+              </div>
+            {% endif %}
+  
+          </div>
+          
+  
+          <div class="field is-grouped">
+            <div class="control">
+              {{ borrrow_form.submit(class="button is-link") }}
             </div>
           </div>
           

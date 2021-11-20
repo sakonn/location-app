@@ -4,7 +4,7 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField, BooleanField
 from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError, Regexp
 from wtforms.widgets.core import DateTimeLocalInput
-from locationApp.models import User
+from locationApp.models import User, ApiKey
 
 
 class RegistrationForm(FlaskForm):
@@ -34,7 +34,19 @@ class LoginForm(FlaskForm):
   submit = SubmitField('Log in')
 
 class KeyForm(FlaskForm):
+  identifier = StringField()
   name = StringField('Key name', validators=[DataRequired()])
   key = StringField('Key', validators=[DataRequired()])
   
   submit = SubmitField('Save key')
+
+class BorrowForm(FlaskForm):
+  identifier = StringField()
+  client = StringField('Klient name', validators=[DataRequired()])
+  
+  submit = SubmitField('Save borrow')
+
+#  def validate_key(self, key):
+#    user = ApiKey.query.filter_by(key=key.data).first()
+#    if user:
+#      raise ValidationError('Key already exist, generate new!')

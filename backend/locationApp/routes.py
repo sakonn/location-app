@@ -1,7 +1,7 @@
 from flask import render_template, url_for, flash, redirect, request
 from locationApp import app, db, bcrypt
-from locationApp.forms import RegistrationForm, LoginForm, KeyForm
-from locationApp.models import User, LocationPoint
+from locationApp.forms import RegistrationForm, LoginForm, KeyForm, BorrowForm
+from locationApp.models import User, LocationPoint, ApiKey, Borrow
 from flask_login import login_user, current_user, logout_user, login_required
 import secrets
 
@@ -26,7 +26,8 @@ data = [
 
 @app.route("/")
 def index():
-  return render_template('home.html', data=data)
+  borrow = Borrow.query.first()
+  return render_template('home.html', data=data, borrow=borrow)
 
 @app.route("/about")
 def about():
@@ -74,4 +75,24 @@ def logout():
 @login_required
 def account():
   form = KeyForm()
-  return render_template('account.html', data=data, form=form, key=secrets.token_urlsafe(32))
+  borrrow_form = BorrowForm()
+  keys = ApiKey.query.filter_by(owner=current_user).all()
+  borrows = Borrow.query.all()
+  if form.identifier.data == 'key_form' and form.validate_on_submit():
+    key = ApiKey(name=form.name.data, key=form.key.data, owner=current_user)
+    db.session.add(key)
+    db.session.commit()
+    flash('Your key has been created, you are able to use it!', 'success')
+  elif borrrow_form.identifier.data == 'borrrow_form' and borrrow_form.validate_on_submit():
+    borrow = Borrow(client=borrrow_form.client.data)
+    db.session.add(borrow)
+    db.session.commit()
+    flash('Your borrow has been created, you are able to use it!', 'success')
+  elif request.method == 'GET':
+    form.key.data = secrets.token_urlsafe(32)
+  return render_template('account.html', keys=keys, form=form, borrows=borrows, borrrow_form=borrrow_form)
+
+@app.route("/api/newpoint", methods=['POST'])
+def addPoint():
+  borrow = ''
+  return {'staus': 'ok'}

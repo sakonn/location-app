@@ -5,10 +5,10 @@
 
 <section class="section">
   <div class="container">
-    {% for i in data%}
-    <h1 class="title">{{ i.title }}</h1>
-    <p>{{ i.content }}</p>
-  {% endfor %}
+    
+  {% if borrow %}
+    <p class="content mb-6">Current client is {{ borrow.client }}</p>
+  {% endif %}
   </div>
 </section>
 

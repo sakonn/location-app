@@ -11,19 +11,19 @@ class User(db.Model, UserMixin):
   username = db.Column(db.String(20), unique=True, nullable=False)
   email = db.Column(db.String(120), unique=True, nullable=False)
   password = db.Column(db.String(60), nullable=True)
-  keys = db.relationship('ApiKeys', backref='keys', lazy=True)
+  keys = db.relationship('ApiKey', backref='owner', lazy=True)
 
   def __repr__(self):
     return f"User ('{self.username}', '{self.email}')"
 
-class ApiKeys(db.Model, UserMixin):
+class ApiKey(db.Model, UserMixin):
   id = db.Column(db.Integer, primary_key=True)
   name = db.Column(db.String(120), nullable=False)
   key = db.Column(db.String(32), nullable=True)
-  user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+  user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 
   def __repr__(self):
-    return f"User ('{self.name}', '{self.email}')"
+    return f"Key ('{self.name}')"
 
 class LocationPoint(db.Model):
   id = db.Column(db.Integer, primary_key=True)
@@ -38,8 +38,8 @@ class LocationPoint(db.Model):
 class Borrow(db.Model):
   id = db.Column(db.Integer, primary_key=True)
   client = db.Column(db.String(120), nullable=False)
-  borrowed_from = db.Column(db.DateTime, nullable=False)
-  borrowed_to = db.Column(db.DateTime, nullable=False)
+  borrowed_from = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+  borrowed_to = db.Column(db.DateTime, nullable=True, default=datetime.min)
   points = db.relationship('LocationPoint', backref='borrow', lazy=True)
 
   def __repr__(self):
