@@ -1,4 +1,4 @@
-from flask import render_template, url_for, flash, redirect, request
+from flask import render_template, url_for, flash, redirect, request, abort
 from datetime import datetime
 from locationApp import app, db, bcrypt
 from locationApp.forms import RegistrationForm, LoginForm, KeyForm, BorrowForm, UpdateAccountForm
@@ -27,8 +27,9 @@ data = [
 
 @app.route("/")
 def index():
-  borrow = Borrow.query.filter(Borrow.borrowed_to >= datetime.utcnow()).first()
-  return render_template('home.html', data=data, borrow=borrow)
+  active_borrow = Borrow.query.filter(Borrow.borrowed_to >= datetime.utcnow()).first()
+  
+  return render_template('home.html', data=data, borrow=active_borrow)
 
 @app.route("/about")
 def about():
@@ -155,16 +156,28 @@ def key_delete(key_id):
 
 @app.route("/api/newpoint", methods=['POST', 'GET'])
 def addPoint():
+  if not ApiKey.query.filter_by(key=request.args.get('apikey')).first():
+    abort(403)
   active_borrow = Borrow.query.filter(Borrow.borrowed_to >= datetime.utcnow()).first()
-  content = request.json
-  print(content)
-  print(request.args.get('apikey'))
-  return {'staus': 'ok'}
+#  print(active_borrow)
+  data = request.json
+#  print(type(float(data['latitude'])))
+#  print(data.latitude)
+  location_point = LocationPoint(timestamp=datetime.now(), latitude=float(data['latitude']), longitude=float(data['longitude']), borrow=active_borrow)
+  db.session.add(location_point)
+  db.session.commit()
+#  timestamp = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+#  latitude = db.Column(db.Float, nullable=False)
+#  longitude = db.Column(db.Float, nullable=False)
+#  borrow_id = db.Column(db.Integer, db.ForeignKey('borrow.id'), nullable=False) 
+# print(content)
+#  print(request.args.get('apikey'))
+  return {'pointID': location_point.id}
 
 
 @app.route("/test", methods=['POST', 'GET'])
 def test():
-  res = requests.post('http://localhost:5000/api/newpoint?apikey=mykey', json={"mytext":"lalala"})
+  res = requests.post('http://localhost:5000/api/newpoint?apikey=b18bfe275cb7ea0007655d62c7fe39ee', json={"latitude":"12.34", "longitude": "56.78"})
   if res.ok:
     print(res.json())
   return 'success'

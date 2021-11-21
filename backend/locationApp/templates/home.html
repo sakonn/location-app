@@ -8,6 +8,10 @@
     
   {% if borrow %}
     <p class="content mb-6">Current client is {{ borrow.client }}</p>
+    {% for point in borrow.points %}
+      {{ point.latitude }} {{ point.longitude }}
+      <br>
+    {% endfor %}
   {% else %}
     <p class="content mb-6">There is no current borrow</p>
   {% endif %}
