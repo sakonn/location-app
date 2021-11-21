@@ -1,0 +1,31 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+<section class="section">
+  <div class="container">
+  <div class="columns is-centered mt-6">
+    <div class="column is-4">
+      <h2 class="title is-4">Borrow with client {{ borrow.client }} </h2>
+      <div class="buttons">
+        <a class="button is-danger" href="{{ url_for('borrow_delete', borrow_id=borrow.id) }}">Delete borrow</a></a>
+        {% if stoppable %}
+          <a class="button is-danger" href="{{ url_for('borrow_stop', borrow_id=borrow.id) }}">Stop borrow</a></a>
+        {% endif %}
+      </div>
+      <p class="content">
+        {{ borrow.borrowed_from }}
+      </p>
+      <p class="content">
+        {{ borrow.borrowed_to }}
+      </p>
+      <p class="content">
+        {{ borrow.points.length }}
+      </p>
+    </div>
+  </div>
+  </div>
+</section>
+
+  
+{% endblock content %}

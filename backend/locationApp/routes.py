@@ -1,9 +1,10 @@
 from flask import render_template, url_for, flash, redirect, request
+from datetime import datetime, date
+from flask.templating import render_template_string
 from locationApp import app, db, bcrypt
-from locationApp.forms import RegistrationForm, LoginForm, KeyForm, BorrowForm
+from locationApp.forms import RegistrationForm, LoginForm, KeyForm, BorrowForm, UpdateAccountForm
 from locationApp.models import User, LocationPoint, ApiKey, Borrow
 from flask_login import login_user, current_user, logout_user, login_required
-import secrets
 
 data = [
   {
@@ -74,25 +75,60 @@ def logout():
 @app.route("/account", methods=['GET', 'POST'])
 @login_required
 def account():
-  form = KeyForm()
-  borrrow_form = BorrowForm()
+  form = UpdateAccountForm()
   keys = ApiKey.query.filter_by(owner=current_user).all()
-  borrows = Borrow.query.all()
-  if form.identifier.data == 'key_form' and form.validate_on_submit():
-    key = ApiKey(name=form.name.data, key=form.key.data, owner=current_user)
-    db.session.add(key)
+  if form.validate_on_submit():
+    current_user.username = form.username.data
+    current_user.email = form.email.data
     db.session.commit()
-    flash('Your key has been created, you are able to use it!', 'success')
-  elif borrrow_form.identifier.data == 'borrrow_form' and borrrow_form.validate_on_submit():
-    borrow = Borrow(client=borrrow_form.client.data)
+    flash('Your account has been updated!', 'success')
+    return redirect(url_for('account'))
+  elif request.method == 'GET':
+    form.username.data = current_user.username
+    form.email.data = current_user.email
+  return render_template('account.html', keys=keys, form=form)
+
+@app.route("/borrow-list", methods=['POST', 'GET'])
+def borrow_list():
+  borrows = Borrow.query.filter(Borrow.borrowed_to!= datetime.max).order_by(Borrow.id.desc())
+  active = Borrow.query.filter(Borrow.borrowed_to >= datetime.utcnow()).first()
+  return render_template('borrow_list.html', borrows=borrows, active=active)
+
+@app.route("/borrow/new", methods=['POST', 'GET'])
+def borrow_new():
+  form = BorrowForm()
+  if form.validate_on_submit():
+    borrow = Borrow(client=form.client.data)
     db.session.add(borrow)
     db.session.commit()
     flash('Your borrow has been created, you are able to use it!', 'success')
-  elif request.method == 'GET':
-    form.key.data = secrets.token_urlsafe(32)
-  return render_template('account.html', keys=keys, form=form, borrows=borrows, borrrow_form=borrrow_form)
+    return redirect(url_for('borrow_list'))
+  return render_template('borrow_new.html', form=form)
+
+@app.route("/borrow/<int:borrow_id>", methods=['POST', 'GET'])
+def borrow_view(borrow_id):
+  borrow = Borrow.query.get_or_404(borrow_id)
+  stoppable = borrow.borrowed_to >= datetime.utcnow()
+  return render_template('borrow.html', borrow=borrow, stoppable=stoppable)
+
+@app.route("/borrow/<int:borrow_id>/delete", methods=['POST', 'GET'])
+def borrow_delete(borrow_id):
+  borrow = Borrow.query.get_or_404(borrow_id)
+  db.session.delete(borrow)
+  db.session.commit()
+  flash('Your borrow has been deleted!', 'success')
+  return redirect(url_for('borrow_list'))
 
 @app.route("/api/newpoint", methods=['POST'])
 def addPoint():
   borrow = ''
   return {'staus': 'ok'}
+
+@app.route("/borrow/<int:borrow_id>/stop", methods=['POST', 'GET'])
+def borrow_stop(borrow_id):
+  borrow = Borrow.query.get_or_404(borrow_id)
+#  active = Borrow.query.filter(Borrow.borrowed_to >= datetime.utcnow()).first()
+  borrow.borrowed_to = datetime.utcnow()
+  db.session.commit()
+  flash('Your borrow has been stopped!', 'success')
+  return redirect(url_for('index'))

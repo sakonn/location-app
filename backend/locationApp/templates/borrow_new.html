@@ -1,0 +1,51 @@
+
+{% extends "layout.html" %}
+
+{% block content %}
+
+<section class="section">
+  <div class="container">
+  <h1 class="title is-1">Hello {{ current_user.username }}</h1>
+  <div class="columns is-centered mt-6">
+    <div class="column is-6">
+      <form method="POST" action="" class="box">
+        <h2 class="title is-4">New Borrow</h2>
+        {{ form.hidden_tag() }}
+        
+        <fieldset class="form">
+          <div class="field">
+            {{ form.client.label(class='label') }}
+            {% if form.client.errors %}
+              <div class="control has-icons-right">
+                {{ form.client(class='input is-danger') }}
+                <span class="icon is-small is-right">
+                  <i class="fas fa-exclamation-triangle"></i>
+                </span>
+              </div>
+              {% for error in form.client.errors %}
+                <p class="help is-danger">{{ error }}</p>
+              {% endfor %}
+            {% else %}
+              <div class="control">
+                {{ form.client(class='input') }}
+              </div>
+            {% endif %}
+          </div>
+          
+      
+          <div class="field is-grouped">
+            <div class="control">
+              {{ form.submit(class="button is-link") }}
+            </div>
+          </div>
+          
+          
+        </fieldset>
+      </form>
+    </div>
+  </div>
+  </div>
+</section>
+
+  
+{% endblock content %}

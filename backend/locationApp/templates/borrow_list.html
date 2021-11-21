@@ -1,0 +1,33 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+<section class="section">
+  <div class="container">
+  <h1 class="title is-1">Hello {{ current_user.username }}</h1>
+  <div class="columns is-centered mt-6">
+    <div class="column is-6">
+      {% if active %}
+      <div class="box">
+        <h2 class="title is-3">Current borrow is:</h2>
+        Client name: <a href="{{ url_for('borrow_view', borrow_id=active.id) }}">{{ active.client }}</a><br>
+        <a class="button is-danger" href="{{ url_for('borrow_stop', borrow_id=active.id) }}">Stop borrow</a>
+      </div>
+      {% else %}
+        <a href="{{ url_for('borrow_new') }}" class="button is-primary is-large">Create new borrow</a>
+      {% endif%}
+    </div>
+    <div class="column is-4">
+      <h2 class="title is-4">List of borrows</h2>
+      <ul>
+        {% for borrow in borrows %}
+          <li> <a href="{{ url_for('borrow_view', borrow_id=borrow.id) }}">{{ borrow.client }}</a> (Borrowed until {{ borrow.borrowed_to.strftime('%Y-%m-%d %H:%m %z') }})</li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+  </div>
+</section>
+
+  
+{% endblock content %}
