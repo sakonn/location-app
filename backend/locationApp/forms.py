@@ -52,9 +52,8 @@ class UpdateAccountForm(FlaskForm):
           raise ValidationError('That email is taken. Please choose a different one.')
 
 class KeyForm(FlaskForm):
-  identifier = StringField()
   name = StringField('Key name', validators=[DataRequired()])
-  key = StringField('Key', validators=[DataRequired()])
+  key = StringField('Key', validators=[])
   
   submit = SubmitField('Save key')
 

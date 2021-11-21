@@ -1,0 +1,71 @@
+
+{% extends "layout.html" %}
+
+{% block content %}
+
+<section class="section">
+  <div class="container">
+  <h1 class="title is-1">Hello {{ current_user.username }}</h1>
+  <div class="columns is-centered mt-6">
+    <div class="column is-6">
+      <form method="POST" action="" class="box">
+        <h2 class="title is-4">New key</h2>
+        {{ form.hidden_tag() }}
+        <fieldset class="form">
+          <div class="field">
+            {{ form.name.label(class='label') }}
+            {% if form.name.errors %}
+              <div class="control has-icons-right">
+                {{ form.name(class='input is-danger') }}
+                <span class="icon is-small is-right">
+                  <i class="fas fa-exclamation-triangle"></i>
+                </span>
+              </div>
+              {% for error in form.name.errors %}
+                <p class="help is-danger">{{ error }}</p>
+              {% endfor %}
+            {% else %}
+              <div class="control">
+                {{ form.name(class='input') }}
+              </div>
+            {% endif %}
+  
+          </div>
+          <div class="field">
+            {{ form.key.label(class='label') }}
+  
+            {% if form.key.errors %}
+              <div class="control has-icons-right">
+                {{ form.key(class='input is-danger') }}
+                <span class="icon is-small is-right">
+                  <i class="fas fa-exclamation-triangle"></i>
+                </span>
+              </div>
+              {% for error in form.key.errors %}
+                <p class="help is-danger">{{ error }}</p>
+              {% endfor %}
+            {% else %}
+              <div class="control">
+                {{ form.key(class='input is-disabled', readonly=True)  }}
+              </div>
+            {% endif %}
+            
+          </div>
+          
+  
+          <div class="field is-grouped">
+            <div class="control">
+              {{ form.submit(class="button is-link") }}
+            </div>
+          </div>
+          
+          
+        </fieldset>
+      </form>
+    </div>
+  </div>
+  </div>
+</section>
+
+  
+{% endblock content %}
