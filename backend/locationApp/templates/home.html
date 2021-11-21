@@ -8,6 +8,8 @@
     
   {% if borrow %}
     <p class="content mb-6">Current client is {{ borrow.client }}</p>
+  {% else %}
+    <p class="content mb-6">There is no current borrow</p>
   {% endif %}
   </div>
 </section>

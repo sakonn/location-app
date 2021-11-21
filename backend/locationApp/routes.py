@@ -5,6 +5,7 @@ from locationApp import app, db, bcrypt
 from locationApp.forms import RegistrationForm, LoginForm, KeyForm, BorrowForm, UpdateAccountForm
 from locationApp.models import User, LocationPoint, ApiKey, Borrow
 from flask_login import login_user, current_user, logout_user, login_required
+import requests
 
 data = [
   {
@@ -24,10 +25,9 @@ data = [
   }
 ]
 
-
 @app.route("/")
 def index():
-  borrow = Borrow.query.first()
+  borrow = Borrow.query.filter(Borrow.borrowed_to >= datetime.utcnow()).first()
   return render_template('home.html', data=data, borrow=borrow)
 
 @app.route("/about")
@@ -47,7 +47,6 @@ def register():
     flash('Your account has been created, you are able to log in!', 'success')
     return redirect(url_for('login'))
   return render_template('register.html', title='Register', form=form)
-
 
 @app.route("/login", methods=['GET', 'POST'])
 def login():
@@ -70,7 +69,6 @@ def login():
 def logout():
   logout_user()
   return redirect(url_for('index'))
-
 
 @app.route("/account", methods=['GET', 'POST'])
 @login_required
@@ -111,6 +109,14 @@ def borrow_view(borrow_id):
   stoppable = borrow.borrowed_to >= datetime.utcnow()
   return render_template('borrow.html', borrow=borrow, stoppable=stoppable)
 
+@app.route("/borrow/<int:borrow_id>/stop", methods=['POST', 'GET'])
+def borrow_stop(borrow_id):
+  borrow = Borrow.query.get_or_404(borrow_id)
+  borrow.borrowed_to = datetime.utcnow()
+  db.session.commit()
+  flash('Your borrow has been stopped!', 'success')
+  return redirect(url_for('index'))
+
 @app.route("/borrow/<int:borrow_id>/delete", methods=['POST', 'GET'])
 def borrow_delete(borrow_id):
   borrow = Borrow.query.get_or_404(borrow_id)
@@ -119,16 +125,18 @@ def borrow_delete(borrow_id):
   flash('Your borrow has been deleted!', 'success')
   return redirect(url_for('borrow_list'))
 
-@app.route("/api/newpoint", methods=['POST'])
+@app.route("/api/newpoint", methods=['POST', 'GET'])
 def addPoint():
-  borrow = ''
+  active_borrow = Borrow.query.filter(Borrow.borrowed_to >= datetime.utcnow()).first()
+  content = request.json
+  print(content)
+  print(request.args.get('apikey'))
   return {'staus': 'ok'}
 
-@app.route("/borrow/<int:borrow_id>/stop", methods=['POST', 'GET'])
-def borrow_stop(borrow_id):
-  borrow = Borrow.query.get_or_404(borrow_id)
-#  active = Borrow.query.filter(Borrow.borrowed_to >= datetime.utcnow()).first()
-  borrow.borrowed_to = datetime.utcnow()
-  db.session.commit()
-  flash('Your borrow has been stopped!', 'success')
-  return redirect(url_for('index'))
+
+@app.route("/test", methods=['POST', 'GET'])
+def test():
+  res = requests.post('http://localhost:5000/api/newpoint?apikey=mykey', json={"mytext":"lalala"})
+  if res.ok:
+    print(res.json())
+  return 'success'

@@ -9,7 +9,7 @@
     <div class="column is-6">
       {% if active %}
       <div class="box">
-        <h2 class="title is-3">Current borrow is:</h2>
+        <h2 class="title is-3">Current client is:</h2>
         Client name: <a href="{{ url_for('borrow_view', borrow_id=active.id) }}">{{ active.client }}</a><br>
         <a class="button is-danger" href="{{ url_for('borrow_stop', borrow_id=active.id) }}">Stop borrow</a>
       </div>
@@ -18,7 +18,7 @@
       {% endif%}
     </div>
     <div class="column is-4">
-      <h2 class="title is-4">List of borrows</h2>
+      <h2 class="title is-4">List of clients</h2>
       <ul>
         {% for borrow in borrows %}
           <li> <a href="{{ url_for('borrow_view', borrow_id=borrow.id) }}">{{ borrow.client }}</a> (Borrowed until {{ borrow.borrowed_to.strftime('%Y-%m-%d %H:%m %z') }})</li>
