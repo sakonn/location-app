@@ -7,3 +7,4 @@ flask_sqlalchemy
 flask_bcrypt
 flask-login
 wtforms-html5
+sqlalchemy-utils
