@@ -1,10 +1,10 @@
-Flask==2.0.2
-mysql-connector==2.2.9
-flask_wtf
+Flask
+mysql-connector
+flask-wtf
 wtforms
-email_validator
-flask_sqlalchemy
-flask_bcrypt
+email-validator
+flask-sqlalchemy
+flask-bcrypt
 flask-login
 wtforms-html5
 sqlalchemy-utils
