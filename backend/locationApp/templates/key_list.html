@@ -19,7 +19,7 @@
               <tr>
                 <td>{{ key.name }}</td>
                 <td>{{ key.key }}</td>
-                <td> <a href="{{ url_for('key_delete', key_id=key.id) }}" class="button is-danger">Delete key</a></td>
+                <td> <a href="{{ url_for('main.key_delete', key_id=key.id) }}" class="button is-danger">Delete key</a></td>
               </tr>
             {% endfor %}
           </tbody>
@@ -29,7 +29,7 @@
         {% endif %}
       </div>
       <div class="column is-4">
-        <a href="{{ url_for('key_new')}}" class="button is-large is-primary">New key</a>
+        <a href="{{ url_for('main.key_new')}}" class="button is-large is-primary">New key</a>
       </div>
     </div>
 

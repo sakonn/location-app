@@ -10,3 +10,4 @@ Simple web application build on Flask, which can store location data from monito
 - [ ] Create config file with local configuration (db access, app configuration etc.)
 - [ ] Configure permissions to unpublish sensitive data
 - [ ] Optimize code
+- [ ] Reformat time to local timezone

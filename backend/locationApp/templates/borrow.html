@@ -8,9 +8,9 @@
     <div class="column is-4">
       <h2 class="title is-4">Borrow with client {{ borrow.client }} </h2>
       <div class="buttons">
-        <a class="button is-danger" href="{{ url_for('borrow_delete', borrow_id=borrow.id) }}">Delete borrow</a>
+        <a class="button is-danger" href="{{ url_for('borrow.borrow_delete', borrow_id=borrow.id) }}">Delete borrow</a>
         {% if stoppable %}
-          <a class="button is-danger" href="{{ url_for('borrow_stop', borrow_id=borrow.id) }}">Stop borrow</a>
+          <a class="button is-danger" href="{{ url_for('borrow.borrow_stop', borrow_id=borrow.id) }}">Stop borrow</a>
         {% endif %}
       </div>
       <p class="content">
