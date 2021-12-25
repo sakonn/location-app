@@ -76,7 +76,7 @@ def addPoint():
 
 @main.route("/test", methods=['POST', 'GET'])
 def test():
-  res = requests.post('http://localhost:5000/api/newpoint?apikey=b18bfe275cb7ea0007655d62c7fe39ee', json={"latitude":"12.34", "longitude": "56.78"})
+  res = requests.post('http://localhost:5000/api/newpoint?apikey=94f4495175fd40ce07148985bf86a498', json={"latitude":"12.34", "longitude": "56.78"})
   if res.ok:
     print(res.json())
   return 'success'

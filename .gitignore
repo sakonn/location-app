@@ -3,3 +3,4 @@ mutagen.yml.lock
 __pycache__
 db/
 Python-location.PublishSettings
+.env

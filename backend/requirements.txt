@@ -9,3 +9,5 @@ flask-login
 wtforms-html5
 sqlalchemy-utils
 python-dotenv
+PyMySQL
+flask_mysqldb
