@@ -39,7 +39,7 @@ class Borrow(db.Model):
   id = db.Column(db.Integer, primary_key=True)
   client = db.Column(db.String(120), nullable=False)
   borrowed_from = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
-  borrowed_to = db.Column(db.DateTime, nullable=True, default=datetime.max)
+  borrowed_to = db.Column(db.DateTime, nullable=True, default=datetime.strptime('1/1/3000 0:0:0', '%m/%d/%Y %H:%M:%S'))
   points = db.relationship('LocationPoint', backref='borrow', lazy=True)
 
   def __repr__(self):
