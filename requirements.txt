@@ -13,3 +13,4 @@ PyMySQL
 flask_mysqldb
 pyodbc
 requests
+SQLAlchemy
