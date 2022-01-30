@@ -13,7 +13,6 @@ login_manager = LoginManager()
 login_manager.login_view = 'users.login'
 login_manager.login_message_category = 'primary'
 
-
 def create_app(config_class=Config):
   app = Flask(__name__)
   app.config.from_object(Config)
@@ -24,10 +23,12 @@ def create_app(config_class=Config):
 
   from locationApp.users.routes import users
   from locationApp.main.routes import main
-  from locationApp.borrow.routes import borrow
+#  from locationApp.borrow.routes import borrow
+  from locationApp.keys.routes import keys
   app.register_blueprint(users)
   app.register_blueprint(main)
-  app.register_blueprint(borrow)
+#  app.register_blueprint(borrow)
+  app.register_blueprint(keys)
 
   return app
   
