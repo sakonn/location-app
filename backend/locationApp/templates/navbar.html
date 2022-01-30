@@ -19,7 +19,7 @@
         </a>
       #}
       {% if current_user.is_authenticated %}
-        <a class="navbar-item" href="{{ url_for('keys.key_list')}}">
+        <a class="navbar-item" href="{{ url_for('key.key_list')}}">
           Keys
         </a>
       {% endif %}

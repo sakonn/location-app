@@ -24,11 +24,11 @@ def create_app(config_class=Config):
   from locationApp.users.routes import users
   from locationApp.main.routes import main
 #  from locationApp.borrow.routes import borrow
-  from locationApp.keys.routes import keys
+  from locationApp.key.routes import key
   app.register_blueprint(users)
   app.register_blueprint(main)
 #  app.register_blueprint(borrow)
-  app.register_blueprint(keys)
+  app.register_blueprint(key)
 
   return app
   

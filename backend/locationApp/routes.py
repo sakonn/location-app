@@ -146,7 +146,7 @@ def key_new():
     db.session.add(key)
     db.session.commit()
     flash('Your key has been created, you are able to use it!', 'success')
-    return redirect(url_for('keys.key_list'))
+    return redirect(url_for('key.key_list'))
   elif request.method == 'GET':
     form.key.data = token_hex(nbytes=16)
   return render_template('key_new.html', form=form)
@@ -157,7 +157,7 @@ def key_delete(key_id):
   db.session.delete(key)
   db.session.commit()
   flash('Your key has been deleted!', 'success')
-  return redirect(url_for('keys.key_list'))
+  return redirect(url_for('key.key_list'))
 
 @app.route("/api/newpoint", methods=['POST', 'GET'])
 def addPoint():
