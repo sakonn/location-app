@@ -169,17 +169,6 @@ def addPoint():
   db.session.commit()
   return {'pointID': location_point.id}
 
-# @app.route("/api/listpoints", methods=['GET'])
-# def listPoints():
-#   if not ApiKey.query.filter_by(key=request.args.get('apikey')).first():
-#     abort(403)
-#   data = request.json
-#   location_point = LocationPoint(timestamp=datetime.now(), latitude=float(data['latitude']), longitude=float(data['longitude']))
-#   db.session.add(location_point)
-#   db.session.commit()
-#   return {'pointID': location_point.id}
-
-
 @app.route("/test", methods=['POST', 'GET'])
 def test():
   res = requests.post('http://localhost:5000/api/newpoint?apikey=338035de93b22139799a6a8a2497ea76', json={"latitude":"12.34", "longitude": "56.78"})
