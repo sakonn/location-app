@@ -12,7 +12,7 @@ class User(db.Model, UserMixin):
   email = db.Column(db.String(120), unique=True, nullable=False)
   password = db.Column(db.String(60), nullable=True)
   keys = db.relationship('ApiKey', backref='owner', lazy=True)
-  points = db.relationship('Points', backref='owner', lazy=True)
+  points = db.relationship('LocationPoint', backref='owner', lazy=True)
 
   def __repr__(self):
     return f"User ('{self.username}', '{self.email}')"
