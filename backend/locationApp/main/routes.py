@@ -15,8 +15,14 @@ def index():
 #  db.create_all()
 #  active_borrow = Borrow.query.filter(Borrow.borrowed_to >= datetime.utcnow()).first()
   if current_user.is_authenticated:
-    print(current_user.points)
-    return render_template('home.html', user_points=current_user.points)
+    points = {}
+    for point in current_user.points:
+      points[str(point.id)] = {
+        'lon': point.latitude,
+        'lat': point.longitude,
+        'timestamp': point.timestamp
+      }
+    return render_template('home.html', user_points=current_user.points, points_json=points)
   else:
     return render_template("home_anonymous.html")
 
@@ -37,7 +43,7 @@ def addPoint():
 
 @main.route("/test", methods=['POST', 'GET'])
 def test():
-  res = requests.post('http://127.0.0.1:5000/api/newpoint?apikey=b2a2081e32bf96957180e74d7cce1976', json={"latitude":"12.34", "longitude": "56.78"})
+  res = requests.post('http://127.0.0.1:5000/api/newpoint?apikey=b2a2081e32bf96957180e74d7cce1976', json={"latitude":"12.84", "longitude": "52.78"})
   if res.ok:
     print(res.json())
   return 'success'

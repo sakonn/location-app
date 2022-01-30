@@ -163,20 +163,21 @@ def key_delete(key_id):
 def addPoint():
   if not ApiKey.query.filter_by(key=request.args.get('apikey')).first():
     abort(403)
-#  print(active_borrow)
   data = request.json
-#  print(type(float(data['latitude'])))
-#  print(data.latitude)
   location_point = LocationPoint(timestamp=datetime.now(), latitude=float(data['latitude']), longitude=float(data['longitude']))
   db.session.add(location_point)
   db.session.commit()
-#  timestamp = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
-#  latitude = db.Column(db.Float, nullable=False)
-#  longitude = db.Column(db.Float, nullable=False)
-#  borrow_id = db.Column(db.Integer, db.ForeignKey('borrow.id'), nullable=False) 
-# print(content)
-#  print(request.args.get('apikey'))
   return {'pointID': location_point.id}
+
+# @app.route("/api/listpoints", methods=['GET'])
+# def listPoints():
+#   if not ApiKey.query.filter_by(key=request.args.get('apikey')).first():
+#     abort(403)
+#   data = request.json
+#   location_point = LocationPoint(timestamp=datetime.now(), latitude=float(data['latitude']), longitude=float(data['longitude']))
+#   db.session.add(location_point)
+#   db.session.commit()
+#   return {'pointID': location_point.id}
 
 
 @app.route("/test", methods=['POST', 'GET'])
