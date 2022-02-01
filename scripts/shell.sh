@@ -1,3 +1,3 @@
 #!/usr/bin/env bash
 
-docker-compose exec php env TERM=xterm sh -c "exec bash -l"
+docker-compose exec backend env TERM=xterm sh -c "exec bash -l"
