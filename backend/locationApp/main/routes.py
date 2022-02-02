@@ -1,9 +1,9 @@
-from genericpath import exists
-from flask import Blueprint, render_template, url_for, flash, redirect, request, abort, jsonify
+
+from flask import Blueprint, render_template, request, abort, jsonify, current_app
 from datetime import datetime
 from locationApp import db
 from locationApp.main.utils import filterPoints
-from locationApp.models import LocationPoint, ApiKey, User
+from locationApp.models import LocationPoint, ApiKey
 from flask_login import current_user, login_required
 import requests
 
@@ -17,11 +17,15 @@ def index():
   if current_user.is_authenticated:
     return render_template('home.html', user_points=current_user.points, points_json=filterPoints())
   else:
-    return render_template("home_anonymous.html")
+    f = open(current_app.config['CONTENT_DIR'] + "/Anonymous.md", "r")
+    mkd_content = f.read()
+    return render_template("single.html", mkd_content=mkd_content)
 
 @main.route("/about")
 def about():
-  return "<h1>Hello World about</h1>"
+  f = open(current_app.config['CONTENT_DIR'] + "/About.md", "r")
+  mkd_content = f.read()
+  return render_template("single.html", title='About project', mkd_content=mkd_content)
 
 @main.route("/api/newpoint", methods=['POST', 'GET'])
 def addPoint():

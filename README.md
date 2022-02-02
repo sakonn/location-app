@@ -14,3 +14,15 @@ Simple web application build on Flask, which can store location data from monito
 - [ ] Add option to store more items per user
 - [ ] Configure rentals of the equipement
 - [ ] Add paths of equipement on the map
+
+## Used tools
+- Flask - web server
+- SQLalchemy - db
+- Bcrypt - password encryption
+- LoginManager - user login session management
+- Mail - emails sending
+- Misaka - markdown to html conversion
+- wtforms - forms creation and handling
+- TimedJSONWebSignatureSerializer - password reset tokens
+
+- os, datetime, 

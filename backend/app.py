@@ -1,7 +1,4 @@
-from locationApp.config import Config
 from locationApp import create_app
-import sqlalchemy_utils
-from locationApp import db 
 
 #if not sqlalchemy_utils.database_exists('sqlite:///../db/site.db'):
 #  sqlalchemy_utils.create_database('sqlite:///../db/site.db')
