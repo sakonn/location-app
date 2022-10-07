@@ -17,13 +17,13 @@ def index():
   if current_user.is_authenticated:
     return render_template('home.html', user_points=current_user.points, points_json=filterPoints())
   else:
-    f = open(current_app.config['CONTENT_DIR'] + "/Anonymous.md", "r")
+    f = open(current_app.config['CONTENT_DIR'] + "\Anonymous.md", "r")
     mkd_content = f.read()
     return render_template("single.html", mkd_content=mkd_content)
 
 @main.route("/about")
 def about():
-  f = open(current_app.config['CONTENT_DIR'] + "/About.md", "r")
+  f = open(current_app.config['CONTENT_DIR'] + "\About.md", "r")
   mkd_content = f.read()
   return render_template("single.html", title='About project', mkd_content=mkd_content)
 

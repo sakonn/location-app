@@ -9,6 +9,7 @@ Simple web application build on Flask, which can store location data from monito
 - [x] display of map with location data (leaflet.js representation with points on map)
 - [x] Create config file with local configuration (db access, app configuration etc.)
 - [x] Configure permissions to unpublish sensitive data
+- [ ] Make path crossplatform
 - [ ] Optimize code
 - [ ] Reformat time to local timezone
 - [ ] Add option to store more items per user

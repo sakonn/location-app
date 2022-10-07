@@ -4,3 +4,4 @@ __pycache__
 db/
 Python-location.PublishSettings
 .env
+.vs
