@@ -1,7 +1,7 @@
 .idea/
 mutagen.yml.lock
 __pycache__
-db/
+db/*.db
 Python-location.PublishSettings
 .env
 .vs

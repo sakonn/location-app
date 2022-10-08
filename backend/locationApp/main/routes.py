@@ -6,6 +6,7 @@ from locationApp.main.utils import filterPoints
 from locationApp.models import LocationPoint, ApiKey
 from flask_login import current_user, login_required
 import requests
+import random
 
 main = Blueprint('main', __name__)
 
@@ -47,7 +48,9 @@ def listPoints():
 
 @main.route("/test", methods=['POST', 'GET'])
 def test():
-  res = requests.post('http://127.0.0.1:5000/api/newpoint?apikey=b2a2081e32bf96957180e74d7cce1976', json={"latitude":"12.84", "longitude": "52.78"})
+  latit = random.uniform(17, 22)
+  longit = random.uniform(47.8, 49.1)
+  res = requests.post('http://localhost:5000/api/newpoint?apikey=8a14eb966504b7c2dc4b220f4f5be970', json={"latitude":str(latit), "longitude":str(longit)})
   if res.ok:
     print(res.json())
   return 'success'

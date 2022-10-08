@@ -18,18 +18,18 @@ def create_app(config_class=Config):
   app = Flask(__name__)
   app.config.from_object(Config)
 
-  db.init_app(app)
-  bcrypt.init_app(app)
-  login_manager.init_app(app)
-  mail.init_app(app)
-  misaka.init_app(app)
-  
   from locationApp.users.routes import users
   from locationApp.main.routes import main
   from locationApp.key.routes import key
   app.register_blueprint(users)
   app.register_blueprint(main)
   app.register_blueprint(key)
+
+  db.init_app(app)
+  bcrypt.init_app(app)
+  login_manager.init_app(app)
+  mail.init_app(app)
+  misaka.init_app(app)
 
   return app
   
