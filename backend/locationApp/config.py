@@ -7,6 +7,8 @@ load_dotenv()
 class Config:
   params = urllib.parse.quote_plus(os.environ.get('SQLALCHEMY_DATABASE_URI'))
 
+  TEMPLATES_AUTO_RELOAD = True
+  FLASK_RUN_EXTRA_FILES = 'static/scss/style.scss'
   SECRET_KEY = os.environ.get('SECRET_KEY')
   SQLALCHEMY_DATABASE_URI = os.environ.get('SQLALCHEMY_DATABASE_URI')
 #  SQLALCHEMY_DATABASE_URI = "mssql+pyodbc:///?odbc_connect=%s" % params
@@ -22,3 +24,4 @@ class Config:
   MAIL_USERNAME = os.environ.get('EMAIL_USER')
   MAIL_PASSWORD = os.environ.get('EMAIL_PASS')
   CONTENT_DIR = os.environ.get('CONTENT_DIR')
+  ASSETS_DEBUG = True

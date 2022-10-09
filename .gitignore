@@ -5,3 +5,6 @@ db/*.db
 Python-location.PublishSettings
 .env
 .vs
+
+**/.webassets-cache
+**/static/gen
