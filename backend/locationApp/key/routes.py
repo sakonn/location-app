@@ -12,7 +12,7 @@ key = Blueprint('key', __name__)
 @login_required
 def key_list():
   keys = ApiKey.query.filter(ApiKey.user_id == current_user.id).all()
-  return render_template('key_list.html', keys=keys)
+  return render_template('key_list.html', keys=keys, title='Hello ' + current_user.username)
 
 @key.route("/key/new", methods=['POST', 'GET'])
 @login_required
@@ -26,7 +26,7 @@ def key_new():
     return redirect(url_for('key.key_list'))
   elif request.method == 'GET':
     form.key.data = token_hex(nbytes=16)
-  return render_template('key_new.html', form=form)
+  return render_template('key_new.html', form=form, title='Hello ' + current_user.username)
 
 @key.route("/key/<int:key_id>/delete", methods=['POST', 'GET'])
 @login_required
