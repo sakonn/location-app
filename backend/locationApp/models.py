@@ -37,6 +37,7 @@ class ApiKey(db.Model, UserMixin):
   name = db.Column(db.String(120), nullable=False)
   key = db.Column(db.String(32), nullable=True)
   user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+  timestamp = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
 
   def __repr__(self):
     return f"Key ('{self.name}')"

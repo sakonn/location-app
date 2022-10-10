@@ -1,2 +1,44 @@
+#map {
+  height: 600px;
+}
 
+.leaflet-container {
+  z-index: 0;
+}
 
+.key-row {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 0;
+  align-items: center;
+  border-bottom: 2px solid hsl(0, 0%, 71%);
+
+  &:first-child {
+    padding-top: 0;
+  }
+  &:nth-child(2n) {
+    background-color: hsl(0, 0%, 96%);
+  }
+  .key-data {
+    width: 80%;
+    div {
+      overflow:hidden;
+      text-overflow: ellipsis;
+      &:not(:last-child) {
+        padding-bottom: 5px;
+      }
+    }
+  }
+  
+  .key-actions {
+    width: 20%;
+    padding-left: 4px;
+    .button {
+      float: right;
+      .icon {
+        margin-left: 3px;
+      }
+    }
+  }
+}

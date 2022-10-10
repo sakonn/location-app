@@ -14,7 +14,14 @@ Simple web application build on Flask, which can store location data from monito
 - [ ] Reformat time to local timezone
 - [ ] Add option to store more items per user
 - [ ] Configure rentals of the equipement
-- [ ] Add paths of equipement on the map
+- [ ] Add paths of equipement on the map (http://project-osrm.org/docs/v5.5.3/api/#general-options)
+
+#### Todo semestral project
+- [ ] 2 dynamic pages
+- [ ] 30 lines of javascript code
+- [ ] 15 custom css rules
+- [ ] crud operations over entities
+- [ ] validation of input on form fields
 
 ## Used tools
 - Flask - web server
@@ -25,5 +32,5 @@ Simple web application build on Flask, which can store location data from monito
 - Misaka - markdown to html conversion
 - wtforms - forms creation and handling
 - TimedJSONWebSignatureSerializer - password reset tokens
-
-- os, datetime, 
+- os, datetime
+- https://icons8.com/line-awesome for icons

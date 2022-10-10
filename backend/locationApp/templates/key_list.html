@@ -4,31 +4,63 @@
 
 <section class="section">
   <div class="container">
-    <div class="columns is-centered mt-6">
-      <div class="column is-8">
+    <div class="columns is-centered">
+      <div class="column is-9">
         <h2 class="title is-4">List of keys</h2>
         {% if keys %}
-        <table class="table is-striped">
-          <thead>
-            <th>Key name</th>
-            <th>Key value</th>
-            <th>Action</th>
-          </thead>
-          <tbody>
+          {# 
+            <table class="table is-striped">
+              <thead>
+                <th>Key name</th>
+                <th>Key value</th>
+                <th>Action</th>
+              </thead>
+              <tbody>
+                {% for key in keys %}
+                  <tr>
+                    <td>{{ key.name }}</td>
+                    <td>{{ key.key }}</td>
+                    <td> <a href="{{ url_for('key.key_delete', key_id=key.id) }}" class="button is-danger">Delete key</a></td>
+                  </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          #}
+          <div class="key-table">
+            {#
+              <div class="key-row">
+                <div>Key name</div>
+                <div>Key value</div>
+                <div>Action</div>
+              </div>
+            #}
             {% for key in keys %}
-              <tr>
-                <td>{{ key.name }}</td>
-                <td>{{ key.key }}</td>
-                <td> <a href="{{ url_for('key.key_delete', key_id=key.id) }}" class="button is-danger">Delete key</a></td>
-              </tr>
+              <div class="key-row">
+                <div class="key-data">
+                  <div class="has-text-bold">{{ key.name }}</div>
+                  <div>{{ key.key }}</div>
+                  {% if key.timestamp%}
+                    <div>Created {{ key.timestamp.strftime('%d.%m.%Y') }}</div>
+                  {% endif %}
+                </div>
+                <div class="key-actions">
+
+                  <a href="{{ url_for('key.key_delete', key_id=key.id) }}" class="button is-danger is-small is-responsive">
+                    <span class="icon m-touch-0">
+                      <i class="las la-trash-alt"></i>
+                    </span>
+                    <span class="is-hidden-mobile">Delete</span>
+                  </a>
+                </div>
+              </div>
             {% endfor %}
-          </tbody>
-        </table>
+          </div>
         {% else %}  
           <p class="content">No keys active</p>
         {% endif %}
       </div>
-      <div class="column is-4">
+      <div class="column is-1"></div>
+      <div class="column is-2">
         <a href="{{ url_for('key.key_new')}}" class="button is-large is-primary">New key</a>
       </div>
     </div>

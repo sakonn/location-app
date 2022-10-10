@@ -32,7 +32,7 @@ def key_new():
 @login_required
 def key_delete(key_id):
   key = ApiKey.query.get_or_404(key_id)
-  if key.owner == current_user.id:
+  if key.owner.id == current_user.id:
     db.session.delete(key)
     db.session.commit()
     flash('Your key has been deleted!', 'success')
