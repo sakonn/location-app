@@ -8,17 +8,17 @@
     <title>Location app</title>
   {% endif %}
 
-  <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.ico') }}">
+  <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='favicons/favicon.ico') }}">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma-calendar@6.1.16/dist/css/bulma-calendar.min.css">
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
   integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
-  crossorigin=""/>
+  crossorigin="">
   <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
   {% assets "general_style" %}
-    <link rel="stylesheet" href="{{ ASSET_URL }}"></link>
+    <link rel="stylesheet" href="{{ ASSET_URL }}">
   {% endassets %}
 </head>
 <body>
@@ -26,6 +26,7 @@
   {% include 'navbar.html' %}
 
 <section class="section pt-6">
+  <h1 class="title">{{ title }}</h1>
   <div class="container">
     {% with messages = get_flashed_messages(with_categories=true) %}
     {% if messages %}

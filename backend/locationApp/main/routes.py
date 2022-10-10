@@ -16,11 +16,11 @@ def index():
 #  db.create_all()
 #  active_borrow = Borrow.query.filter(Borrow.borrowed_to >= datetime.utcnow()).first()
   if current_user.is_authenticated:
-    return render_template('home.html', user_points=current_user.points, points_json=filterPoints())
+    return render_template('home.html', user_points=current_user.points, points_json=filterPoints(), title='Your maps')
   else:
     f = open(current_app.config['CONTENT_DIR'] + "\Anonymous.md", "r")
     mkd_content = f.read()
-    return render_template("single.html", mkd_content=mkd_content)
+    return render_template("single.html", mkd_content=mkd_content, title='Home page')
 
 @main.route("/about")
 def about():

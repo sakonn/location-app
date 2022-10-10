@@ -40,25 +40,26 @@ function loadPoints() {
 }
 
 window.addEventListener('DOMContentLoaded', (event) => {
-  // initialize Leaflet
-  map = L.map('map').setView({lon: 0, lat: 0}, 2);
+  if (document.getElementById('map')) {
+    // initialize Leaflet
+    map = L.map('map').setView({lon: 0, lat: 0}, 2);
 
-  // add the OpenStreetMap tiles
-  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    maxZoom: 19,
-    attribution: '&copy; <a href="https://openstreetmap.org/copyright">OpenStreetMap contributors</a>'
-  }).addTo(map);
+    // add the OpenStreetMap tiles
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      maxZoom: 19,
+      attribution: '&copy; <a href="https://openstreetmap.org/copyright">OpenStreetMap contributors</a>'
+    }).addTo(map);
 
-  // show the scale bar on the lower left corner
-  L.control.scale({imperial: false, metric: true}).addTo(map);
+    // show the scale bar on the lower left corner
+    L.control.scale({imperial: false, metric: true}).addTo(map);
 
-  // Markers group 
-  markersGroup = L.layerGroup().addTo(map);
+    // Markers group 
+    markersGroup = L.layerGroup().addTo(map);
 
+    // Show initial list of points on the map
+    showPoints(points, map);
 
-  // Show initial list of points on the map
-  showPoints(points, map);
-
+  }
   // Initialize all input of date type.
   const calendars = bulmaCalendar.attach('[type="datetime"]', {
     displayMode:      'dialog'
@@ -81,9 +82,9 @@ window.addEventListener('DOMContentLoaded', (event) => {
     });
   }
 
-  document.getElementById("filter").addEventListener("click", loadPoints); 
-
-
+  if (document.getElementById("filter")) {
+    document.getElementById("filter").addEventListener("click", loadPoints);
+  }
 
   // Get all "navbar-burger" elements
   const $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);

@@ -1,8 +1,10 @@
-<nav class="navbar" role="navigation" aria-label="main navigation">
+<nav class="navbar" aria-label="main navigation">
   <div class="navbar-brand">
+     
     <a class="navbar-item" href="{{ url_for('main.index')}}">
-      <img src="https://bulma.io/images/bulma-logo.png" width="112" height="28">
-    </a>
+      <img src="{{ url_for('static', filename='pointer-logo.svg') }}" width="112" height="28" alt="Pointer logo">
+    </a>  
+    
 
     <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="mainNavbar">
       <span aria-hidden="true"></span>
