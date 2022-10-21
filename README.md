@@ -1,4 +1,4 @@
-## Semestral project for UNIX - vývojové prostredie
+## Semestral project for VAII - the vajko
 
 ### Object
 Simple web application build on Flask, which can store location data from monitoring device in database and represent them on the map. 
@@ -17,11 +17,47 @@ Simple web application build on Flask, which can store location data from monito
 - [ ] Add paths of equipement on the map (http://project-osrm.org/docs/v5.5.3/api/#general-options)
 
 #### Todo semestral project
-- [ ] 2 dynamic pages
-- [ ] 30 lines of javascript code
-- [ ] 15 custom css rules
-- [ ] crud operations over entities
-- [ ] validation of input on form fields
+- [ ] 5 dynamic pages
+  - [ ] Points map 
+  - [ ] My account / keys management - merge two paths into single page to make all editor on one page
+  - [ ] Equipement edit page
+  - [ ] Equipement list page
+  - [ ] Content pages
+- [ ] 50 lines of javascript code
+  - [ ] Improve map behaviour
+  - [ ] Validate input on registration page with JS
+- [ ] 20 custom css rules
+  - [x] 7 rules for key design
+- [ ] 4 entites with CRUD operations
+  - [ ] Keys
+    - [x] create
+    - [x] read
+    - [ ] update
+    - [x] delete
+  - [ ] Equipement
+    - [ ] create
+    - [ ] read
+    - [ ] update
+    - [ ] delete
+  - [ ] Account
+    - [x] create
+    - [x] read
+    - [x] update
+    - [ ] delete
+  - [ ] Location point
+    - [x] create
+    - [x] read
+    - [ ] update
+    - [ ] delete
+- [ ] validation of input on form fields on server side
+  - [ ] Data type and valid value of inserted item
+  - [ ] Prevention before SQL Injection
+- [ ] AJAX comunication
+  - [ ] Filters of points
+  - [ ] Add new 
+- [ ] Check resposive design
+- [ ] Check W3C standards
+- [ ] Add docker compose file or dockerfile
 
 ## Used tools
 - Flask - web server
