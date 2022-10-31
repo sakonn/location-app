@@ -5,7 +5,6 @@ from locationApp.key.forms import KeyForm
 from locationApp.models import ApiKey
 from secrets import token_hex
 
-
 key = Blueprint('key', __name__)
 
 @key.route("/key-list", methods=['POST', 'GET'])
@@ -26,7 +25,22 @@ def key_new():
     return redirect(url_for('key.key_list'))
   elif request.method == 'GET':
     form.key.data = token_hex(nbytes=16)
-  return render_template('key_new.html', form=form, title='Hello ' + current_user.username)
+  return render_template('key_form.html', form=form, title='Hello ' + current_user.username, form_title="Create key")
+
+@key.route("/key/<int:key_id>/edit", methods=['POST', 'GET'])
+@login_required
+def key_edit(key_id):
+  form = KeyForm()
+  key = ApiKey.query.get_or_404(key_id)
+  if form.validate_on_submit():
+    key.name = form.name.data
+    db.session.commit()
+    flash('Your key has been updated, you are able to use it!', 'success')
+    return redirect(url_for('key.key_list'))
+  elif request.method == 'GET':
+    form.key.data = key.key
+    form.name.data = key.name
+  return render_template('key_form.html', form=form, title='Hello ' + current_user.username, form_title="Update key")
 
 @key.route("/key/<int:key_id>/delete", methods=['POST', 'GET'])
 @login_required

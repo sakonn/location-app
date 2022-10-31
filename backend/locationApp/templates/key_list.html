@@ -44,7 +44,12 @@
                   {% endif %}
                 </div>
                 <div class="key-actions">
-
+                  <a href="{{ url_for('key.key_edit', key_id=key.id) }}" class="button is-success is-small is-responsive">
+                    <span class="icon m-touch-0">
+                      <i class="las la-edit"></i>
+                    </span>
+                    <span class="is-hidden-mobile">Edit</span>
+                  </a>
                   <a href="{{ url_for('key.key_delete', key_id=key.id) }}" class="button is-danger is-small is-responsive">
                     <span class="icon m-touch-0">
                       <i class="las la-trash-alt"></i>
