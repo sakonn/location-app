@@ -15,6 +15,7 @@ class User(db.Model, UserMixin):
   password = db.Column(db.String(60), nullable=True)
   keys = db.relationship('ApiKey', backref='owner', lazy=True)
   points = db.relationship('LocationPoint', backref='owner', lazy=True)
+  equipment = db.relationship('Equipment', backref='owner', lazy=True)
 
   def get_reset_token(self, expires_sec=1800):
     s = Serializer(current_app.config['SECRET_KEY'], expires_sec)
@@ -51,6 +52,16 @@ class LocationPoint(db.Model):
 
   def __repr__(self):
     return f"Point ('{self.id}', '{self.timestamp}')"
+
+class Equipment(db.Model):
+  id = db.Column(db.Integer, primary_key=True)
+  name = db.Column(db.String(120), nullable=False)
+  image_file = db.Column(db.String(20), nullable=False, default='000demo_equip.jpg')
+  description = db.Column(db.Text, nullable=False)
+  user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+
+  def __repr__(self):
+    return f"Equipement ('{self.name}')"
 
 # class Borrow(db.Model):
 #   id = db.Column(db.Integer, primary_key=True)

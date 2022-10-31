@@ -88,3 +88,4 @@ xlrd==2.0.1
 zipp==3.8.1
 Flask-assets==2.0
 Libsass==0.21.0
+Pillow==9.3.0

@@ -1,0 +1,46 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+<section class="section">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-9">
+        <h2 class="title is-4">List of equipment</h2>
+        {% if equipment %}
+        <table class="table is-striped">
+          <thead>
+            <th>Equipment name</th>
+            <th>Equipment description</th>
+            <th>Image file</th>
+            <th>Action</th>
+          </thead>
+          <tbody>
+            {% for equip in equipment %}
+              <tr>
+                <td>{{ equip.name }}</td>
+                <td>{{ equip.description }}</td>
+                <td>{{ equip.image_file }}</td>
+                <td> <a href="{{ url_for('equip.equip_delete', equip_id=equip.id) }}" class="button is-danger is-small">Delete equipment</a></td>
+                {#
+                #}
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+        {% else %}  
+          <p class="content">No equipement created</p>
+        {% endif %}
+      </div>
+      <div class="column is-1"></div>
+      <div class="column is-2">
+        <a href="{{ url_for('equip.equip_new')}}" class="button is-large is-primary">New equipment</a>
+      </div>
+    </div>
+
+  
+  </div>
+</section>
+
+  
+{% endblock content %}

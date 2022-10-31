@@ -18,7 +18,7 @@ Simple web application build on Flask, which can store location data from monito
 
 #### Todo semestral project
 - [ ] 5 dynamic pages
-  - [ ] Points map 
+  - [ ] Points map
   - [ ] My account / keys management - merge two paths into single page to make all editor on one page
   - [ ] Equipement edit page
   - [ ] Equipement list page
@@ -32,13 +32,15 @@ Simple web application build on Flask, which can store location data from monito
   - [ ] Keys
     - [x] create
     - [x] read
-    - [ ] update
+    - [x] update
     - [x] delete
   - [ ] Equipement
-    - [ ] create
-    - [ ] read
+    - [x] create
+    - [x] read
     - [ ] update
-    - [ ] delete
+    - [ ] Add more fields
+    - [ ] Make some nice views of data
+    - [x] delete
   - [ ] Account
     - [x] create
     - [x] read

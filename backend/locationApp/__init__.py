@@ -24,9 +24,11 @@ def create_app(config_class=Config):
   from locationApp.users.routes import users
   from locationApp.main.routes import main
   from locationApp.key.routes import key
+  from locationApp.equip.routes import equip
   app.register_blueprint(users)
   app.register_blueprint(main)
   app.register_blueprint(key)
+  app.register_blueprint(equip)
 
   db.init_app(app)
   bcrypt.init_app(app)
