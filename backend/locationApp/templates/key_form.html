@@ -28,14 +28,30 @@
                 {{ form.name(class='input') }}
               </div>
             {% endif %}
-  
           </div>
+
+          <div class="field">
+            {{ form.equipment.label(class='label') }}
+            {% if form.equipment.errors %}
+            <div class="select is-anger">
+            {% else %}
+            <div class="select">
+            {% endif %}
+              <div class="control">
+                {{ form.equipment(class='select') }}
+                {% for error in form.equipment.errors %}
+                  <p class="help is-danger">{{ error }}</p>
+                {% endfor %}
+              </div>
+            </div>
+          </div>
+
           <div class="field">
             {{ form.key.label(class='label') }}
   
             {% if form.key.errors %}
               <div class="control has-icons-right">
-                {{ form.key(class='input is-danger') }}
+                {{ form.key(class='input is-danger is-disabled', readonly=True) }}
                 <span class="icon is-small is-right">
                   <i class="fas fa-exclamation-triangle"></i>
                 </span>

@@ -22,8 +22,6 @@
                 <td>{{ equip.description }}</td>
                 <td>{{ equip.image_file }}</td>
                 <td> <a href="{{ url_for('equip.equip_delete', equip_id=equip.id) }}" class="button is-danger is-small">Delete equipment</a></td>
-                {#
-                #}
               </tr>
             {% endfor %}
           </tbody>

@@ -8,7 +8,7 @@ function showPoints(list) {
   console.log(list);
   let arrayOfMarkers = [];
   for (const [pID, p] of Object.entries(list)) {
-    L.marker({lon: p.lon, lat: p.lat}).bindPopup(p.timestamp).addTo(markersGroup);
+    L.marker({lon: p.lon, lat: p.lat}).bindPopup(p.equipment.name + ' -> ' + p.timestamp).addTo(markersGroup);
     arrayOfMarkers.push([p.lat, p.lon]);
   }
   var bounds = new L.LatLngBounds(arrayOfMarkers);
@@ -60,7 +60,6 @@ window.addEventListener('DOMContentLoaded', (event) => {
 
     // Show initial list of points on the map
     showPoints(points, map);
-
   }
   // Initialize all input of date type.
   const calendars = bulmaCalendar.attach('[type="datetime"]', {

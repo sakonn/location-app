@@ -50,6 +50,7 @@ class LocationPoint(db.Model):
   latitude = db.Column(db.Float, nullable=False)
   longitude = db.Column(db.Float, nullable=False)
   user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+  equipment = db.Column(db.Integer, db.ForeignKey('equipment.id'))
 
   def __repr__(self):
     return f"Point ('{self.id}', '{self.timestamp}')"
@@ -60,10 +61,12 @@ class Equipment(db.Model):
   image_file = db.Column(db.String(20), nullable=False, default='000demo_equip.jpg')
   description = db.Column(db.Text, nullable=False)
   user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
-  api_key = db.Column(db.Integer, db.ForeignKey('apikey.id'), nullable=True)
+  api_key = db.relationship('ApiKey', backref='equipment_key', lazy=True)
+  locations = db.relationship('LocationPoint', backref='locations', lazy=True)
 
   def __repr__(self):
     return f"Equipement ('{self.name}')"
+
 
 # class Borrow(db.Model):
 #   id = db.Column(db.Integer, primary_key=True)

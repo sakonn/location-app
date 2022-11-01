@@ -2,7 +2,7 @@ from flask import Blueprint, render_template, url_for, flash, redirect, request
 from locationApp import db
 from flask_login import current_user, login_required
 from locationApp.key.forms import KeyForm
-from locationApp.models import ApiKey
+from locationApp.models import ApiKey, Equipment
 from secrets import token_hex
 
 key = Blueprint('key', __name__)
@@ -18,12 +18,14 @@ def key_list():
 def key_new():
   form = KeyForm()
   if form.validate_on_submit():
-    key = ApiKey(name=form.name.data, key=form.key.data, owner=current_user)
+    key = ApiKey(name=form.name.data, key=form.key.data, owner=current_user, equipment=form.equipment.data)
     db.session.add(key)
     db.session.commit()
     flash('Your key has been created, you are able to use it!', 'success')
     return redirect(url_for('key.key_list'))
   elif request.method == 'GET':
+    form.equipment.choices = [(e.id, e.name) for e in 
+          Equipment.query.filter(Equipment.user_id == current_user.id and Equipment.api_key == None).all()]
     form.key.data = token_hex(nbytes=16)
   return render_template('key_form.html', form=form, title='Hello ' + current_user.username, form_title="Create key")
 
@@ -34,10 +36,13 @@ def key_edit(key_id):
   key = ApiKey.query.get_or_404(key_id)
   if form.validate_on_submit():
     key.name = form.name.data
+    key.equipment = form.equipment.data
     db.session.commit()
     flash('Your key has been updated, you are able to use it!', 'success')
     return redirect(url_for('key.key_list'))
   elif request.method == 'GET':
+    form.equipment.data = key.equipment
+    form.equipment.choices = [(e.id, e.name) for e in Equipment.query.filter(Equipment.user_id == current_user.id and Equipment.api_key == None).all()]
     form.key.data = key.key
     form.name.data = key.name
   return render_template('key_form.html', form=form, title='Hello ' + current_user.username, form_title="Update key")

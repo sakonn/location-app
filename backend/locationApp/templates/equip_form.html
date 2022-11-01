@@ -30,6 +30,7 @@
             {% endif %}
   
           </div>
+          
           <div class="field">
             {{ form.description.label(class='label') }}
   
@@ -47,12 +48,11 @@
               <div class="control">
                 {{ form.description(class='textarea')  }}
               </div>
-            {% endif %}
-            
+            {% endif %}  
           </div>
+
           <div class="field">
             {{ form.image.label(class='label') }}
-  
 
             <div id="equip-image-upload" class="file has-name is-boxed">
               <label class="file-label">
