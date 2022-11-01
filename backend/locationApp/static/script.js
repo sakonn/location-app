@@ -42,7 +42,9 @@ function loadPoints() {
 window.addEventListener('DOMContentLoaded', (event) => {
   if (document.getElementById('map')) {
     // initialize Leaflet
-    map = L.map('map').setView({lon: 0, lat: 0}, 2);
+    map = L.map('map', {
+      gestureHandling: true
+    }).setView({lon: 0, lat: 0}, 2);
 
     // add the OpenStreetMap tiles
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {

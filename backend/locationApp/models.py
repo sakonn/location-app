@@ -38,6 +38,7 @@ class ApiKey(db.Model, UserMixin):
   name = db.Column(db.String(120), nullable=False)
   key = db.Column(db.String(32), nullable=True)
   user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+  equipment = db.Column(db.Integer, db.ForeignKey('equipment.id'))
   timestamp = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
 
   def __repr__(self):
@@ -59,6 +60,7 @@ class Equipment(db.Model):
   image_file = db.Column(db.String(20), nullable=False, default='000demo_equip.jpg')
   description = db.Column(db.Text, nullable=False)
   user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+  api_key = db.Column(db.Integer, db.ForeignKey('apikey.id'), nullable=True)
 
   def __repr__(self):
     return f"Equipement ('{self.name}')"
