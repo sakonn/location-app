@@ -53,7 +53,7 @@ class LocationPoint(db.Model):
   equipment = db.Column(db.Integer, db.ForeignKey('equipment.id'))
 
   def __repr__(self):
-    return f"Point ('{self.id}', '{self.timestamp}')"
+    return f"Point ('{self.id}', '{self.timestamp}', '{self.equipment}')"
 
 class Equipment(db.Model):
   id = db.Column(db.Integer, primary_key=True)
@@ -62,7 +62,7 @@ class Equipment(db.Model):
   description = db.Column(db.Text, nullable=False)
   user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
   api_key = db.relationship('ApiKey', backref='equipment_key', lazy=True)
-  locations = db.relationship('LocationPoint', backref='locations', lazy=True)
+  locations = db.relationship('LocationPoint', backref='locations', lazy=True, cascade="all, delete-orphan")
 
   def __repr__(self):
     return f"Equipement ('{self.name}')"

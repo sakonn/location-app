@@ -24,8 +24,6 @@
               <input type="datetime" id="date_from">
             </div>
           </div>
-        </div>
-        <div class="column">
           <div class="field">
             <label class="label">Date to</label>
             <div class="control">
@@ -33,9 +31,23 @@
             </div>
           </div>
         </div>
+        <div class="column">
+          <div class="field">
+            <label class="label">Equipment to show</label>
+            <div class="control">
+              {% for tool in equipment %}
+              <label class="checkbox">
+                <input type="checkbox">
+                {{ tool.name }}
+              </label>
+              <br>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
       </div>
       <div class="control">
-        <button class="button is-primary" id="filter">Filter</button>
+        <button class="button is-primary is-pulled-right" id="filter">Filter</button>
       </div>
     </div>
   </div>

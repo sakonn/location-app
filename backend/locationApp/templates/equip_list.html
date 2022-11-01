@@ -8,24 +8,34 @@
       <div class="column is-9">
         <h2 class="title is-4">List of equipment</h2>
         {% if equipment %}
-        <table class="table is-striped">
-          <thead>
-            <th>Equipment name</th>
-            <th>Equipment description</th>
-            <th>Image file</th>
-            <th>Action</th>
-          </thead>
-          <tbody>
-            {% for equip in equipment %}
-              <tr>
-                <td>{{ equip.name }}</td>
-                <td>{{ equip.description }}</td>
-                <td>{{ equip.image_file }}</td>
-                <td> <a href="{{ url_for('equip.equip_delete', equip_id=equip.id) }}" class="button is-danger is-small">Delete equipment</a></td>
-              </tr>
-            {% endfor %}
-          </tbody>
-        </table>
+        <div class="columns is-multiline">
+          {% for equip in equipment %}
+          <div class="column is-4">
+            <div class="card">
+              <div class="card-image">
+                <figure class="image is-4by3">
+                  <img src="{{ url_for('static', filename='equip_pics/' +equip.image_file) }}" alt="Placeholder image">
+                </figure>
+              </div>
+              <div class="card-content">
+                <div class="content">
+                  <h2 class="h2">{{ equip.name }}</h2>
+                  <p class="content">
+                    {{ equip.description }}
+                  </p>
+                </div>
+              </div>
+              <footer class="card-footer">
+                {#
+                  <a href="#" class="card-footer-item">Edit</a>
+                  <a href="{{ url_for('equip.equip_update', equip_id=equip.id) }}" class="button is-success is-small">Edit equipment</a>
+                #}
+                <a href="{{ url_for('equip.equip_delete', equip_id=equip.id) }}" class="card-footer-item has-text-danger">Delete</a>
+              </footer>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
         {% else %}  
           <p class="content">No equipement created</p>
         {% endif %}

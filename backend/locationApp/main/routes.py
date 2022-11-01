@@ -2,9 +2,10 @@
 from flask import Blueprint, render_template, request, abort, jsonify, current_app
 from datetime import datetime
 from locationApp import db
-from locationApp.main.utils import filterPoints
-from locationApp.models import LocationPoint, ApiKey
+from locationApp.main.utils import filterPoints, getLocation
+from locationApp.models import LocationPoint, ApiKey, Equipment
 from flask_login import current_user, login_required
+from sqlalchemy.sql.expression import func
 import requests
 import random
 
@@ -14,7 +15,8 @@ main = Blueprint('main', __name__)
 @main.route("/")
 def index():
   if current_user.is_authenticated:
-    return render_template('home.html', user_points=current_user.points, points_json=filterPoints(), title='Your maps')
+    equipment = Equipment.query.filter(Equipment.user_id == current_user.id).all()
+    return render_template('home.html', user_points=current_user.points, points_json=getLocation(), title='Your maps', equipment=equipment)
   else:
     f = open(current_app.config['CONTENT_DIR'] + "\Anonymous.md", "r")
     mkd_content = f.read()
@@ -48,7 +50,6 @@ def listPoints():
 def test():
   latit = random.uniform(17, 22)
   longit = random.uniform(47.8, 49.1)
-  res = requests.post('http://localhost:5000/api/newpoint?apikey=236199258e9d5b455062e9d572a11d64', json={"latitude":str(latit), "longitude":str(longit)})
-  if res.ok:
-    print(res.json())
+  api_key = ApiKey.query.filter(ApiKey.user_id==current_user.id, ApiKey.equipment is not None).order_by(func.random()).first()
+  res = requests.post('http://localhost:5000/api/newpoint?apikey=' + api_key.key, json={"latitude":str(latit), "longitude":str(longit)})
   return 'success'

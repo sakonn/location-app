@@ -20,4 +20,4 @@ def save_picture(form_picture):
     picture_path = os.path.join(current_app.root_path, 'static/equip_pics', picture_fn)
     i.save(picture_path)
 
-  return random_hex + '_s' + f_ext
+  return random_hex + '_m' + f_ext
