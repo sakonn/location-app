@@ -1,0 +1,92 @@
+
+{% extends "layout.html" %}
+
+{% block body %}
+
+
+<section class="hero is-default">
+  <!-- Hero head: will stick at the top -->
+  <div class="hero-head">
+    {% include 'navbar.html' %}
+  </div>
+
+  <!-- Hero content: will be in the middle -->
+  <div class="hero-body">
+    <div class="container">
+      <div class="columns is-vcentered">
+        <div class="column is-5 is-offset-1 landing-caption">
+          <h1 class="title is-1 is-bold is-spaced">
+            Manage & Track.
+          </h1>
+          
+          <h2 class="subtitle is-5 is-muted">
+            Lorem ipsum sit dolor amet is dummy text used by the typography industry
+          </h2>
+          
+          <p>
+            <a class="button cta rounded primary-btn raised" href="{{ url_for('users.register')}}">
+              Get started
+            </a>
+          </p>
+        </div>
+        <div class="column is-5 is-offset-1">
+          <figure class="image is-4by3">
+            <img src="{{ url_for('static', filename='images/folded-map.svg') }}" alt="Description">
+          </figure>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-foot mb-20">
+    <div class="tabs is-centered">
+      <ul>
+        <li>
+          <a>
+            <img class="partner-logo" src="https://hugo-fresh.vercel.app/images/logos/clients/systek.svg">
+          </a>
+        </li>
+        <li>
+          <a>
+            <img class="partner-logo" src="https://hugo-fresh.vercel.app/images/logos/clients/tribe.svg">
+          </a>
+        </li>
+        <li>
+          <a>
+            <img class="partner-logo" src="https://hugo-fresh.vercel.app/images/logos/clients/kromo.svg">
+          </a>
+        </li>
+        <li>
+          <a>
+            <img class="partner-logo" src="https://hugo-fresh.vercel.app/images/logos/clients/infinite.svg">
+          </a>
+        </li>
+        <li>
+          <a>
+            <img class="partner-logo" src="https://hugo-fresh.vercel.app/images/logos/clients/gutwork.svg">
+          </a>
+        </li>
+      </ul>
+    </div>
+    <div class="container">
+    </div>
+  </div>
+</section>
+
+<div class="section is-medium has-background-light">
+  <div class="container">
+    <div class="title has-text-centered">
+      Great power comes
+    </div>
+    <div class="subtitle has-text-centered">
+      with great responsibility
+    </div>
+    <div class="content has-text-centered">
+      {{ mkd_content|markdown }}
+    </div>
+
+  </div>
+</div>
+
+  
+{% endblock body %}

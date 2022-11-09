@@ -8,6 +8,7 @@ from flask_login import current_user, login_required
 from sqlalchemy.sql.expression import func
 import requests
 import random
+import os
 
 main = Blueprint('main', __name__)
 
@@ -18,15 +19,15 @@ def index():
     equipment = Equipment.query.filter(Equipment.user_id == current_user.id).all()
     return render_template('home.html', user_points=current_user.points, points_json=getLocation(), title='Your maps', equipment=equipment)
   else:
-    f = open(current_app.config['CONTENT_DIR'] + "\Anonymous.md", "r")
+    f = open(os.path.join(current_app.config['CONTENT_DIR'], "Anonymous.md") , "r")
     mkd_content = f.read()
     return render_template("single.html", mkd_content=mkd_content, title='Home page')
 
 @main.route("/about")
 def about():
-  f = open(current_app.config['CONTENT_DIR'] + "\About.md", "r")
+  f = open(os.path.join(current_app.config['CONTENT_DIR'], "About.md"), "r")
   mkd_content = f.read()
-  return render_template("single.html", title='About project', mkd_content=mkd_content)
+  return render_template("about.html", title='About project', mkd_content=mkd_content)
 
 @main.route("/api/newpoint", methods=['POST', 'GET'])
 def addPoint():

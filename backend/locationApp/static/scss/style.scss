@@ -45,3 +45,38 @@
     }
   }
 }
+
+section.hero.has-overlay {
+  &:after {
+    content: " ";
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    background: linear-gradient(black 0%, transparent 35%);
+    pointer-events: none;
+  }
+}
+
+.slider {
+  .slider-navigation-previous,
+  .slider-navigation-next {
+    display: none;
+  }
+}
+
+section.hero {
+  .button {
+    .cta {
+      font-family: open sans,sans-serif;
+      font-size: 1rem;
+      font-weight: 600;
+      padding: 26px 40px;
+    }
+    .rounded {
+      border-radius: 500px;
+    }
+  }
+  img.partner-logo {
+    height: 70px;
+  }
+}

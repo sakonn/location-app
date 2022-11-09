@@ -1,64 +1,66 @@
-<nav class="navbar" aria-label="main navigation">
-  <div class="navbar-brand">
-     
-    <a class="navbar-item" href="{{ url_for('main.index')}}">
-      <img src="{{ url_for('static', filename='pointer-logo.svg') }}" width="112" height="28" alt="Pointer logo">
-    </a>  
-    
-
-    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="mainNavbar">
-      <span aria-hidden="true"></span>
-      <span aria-hidden="true"></span>
-      <span aria-hidden="true"></span>
-    </a>
-  </div>
-
-  <div id="mainNavbar" class="navbar-menu">
-    <div class="navbar-start">
-      {# 
-        <a class="navbar-item" href="{{ url_for('borrow.borrow_list')}}">
-          Borrows
-        </a>
-      #}
-      {% if current_user.is_authenticated %}
-        <a class="navbar-item" href="{{ url_for('key.key_list')}}">
-          Keys
-        </a>
-        <a class="navbar-item" href="{{ url_for('equip.equip_list')}}">
-          Equipment
-        </a>
-      {% endif %}
-      {# 
-        <a class="navbar-item">
-          Documentation
-        </a>
-        #}
-      <a class="navbar-item" href="{{ url_for('main.about')}}">
-        About app
+<div class="container">
+  <nav class="navbar is-transparent" aria-label="main navigation">
+    <div class="navbar-brand">
+       
+      <a class="navbar-item" href="{{ url_for('main.index')}}">
+        <img src="{{ url_for('static', filename='pointer-logo.svg') }}" width="112" height="28" alt="Pointer logo">
+      </a>  
+      
+  
+      <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="mainNavbar">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
       </a>
-
     </div>
-
-    <div class="navbar-end">
-      <div class="navbar-item">
-        <div class="buttons">
-          {% if current_user.is_authenticated %}
-            <a class="button" href="{{ url_for('users.account')}}">
-              <strong>My account</strong>
-            </a>  
-            <a class="button is-primary" href="{{ url_for('users.logout')}}">
-              <strong>Log out</strong>
-            </a>  
-          {% else%}
-            <a class="button is-primary" href="{{ url_for('users.register')}}">
-              <strong>Sign up</strong>
-            </a>
-            <a class="button is-light" href="{{ url_for('users.login')}}">
-              Log in
-            </a>
-          {% endif %}
+  
+    <div id="mainNavbar" class="navbar-menu">
+      <div class="navbar-start">
+        {# 
+          <a class="navbar-item" href="{{ url_for('borrow.borrow_list')}}">
+            Borrows
+          </a>
+        #}
+        {% if current_user.is_authenticated %}
+          <a class="navbar-item" href="{{ url_for('key.key_list')}}">
+            Keys
+          </a>
+          <a class="navbar-item" href="{{ url_for('equip.equip_list')}}">
+            Equipment
+          </a>
+        {% endif %}
+        {# 
+          <a class="navbar-item">
+            Documentation
+          </a>
+          #}
+        <a class="navbar-item" href="{{ url_for('main.about')}}">
+          About app
+        </a>
+  
+      </div>
+  
+      <div class="navbar-end">
+        <div class="navbar-item">
+          <div class="buttons">
+            {% if current_user.is_authenticated %}
+              <a class="button" href="{{ url_for('users.account')}}">
+                <strong>My account</strong>
+              </a>  
+              <a class="button is-primary" href="{{ url_for('users.logout')}}">
+                <strong>Log out</strong>
+              </a>  
+            {% else%}
+              <a class="button is-primary" href="{{ url_for('users.register')}}">
+                <strong>Sign up</strong>
+              </a>
+              <a class="button is-light" href="{{ url_for('users.login')}}">
+                Log in
+              </a>
+            {% endif %}
+          </div>
         </div>
       </div>
     </div>
-  </div>
-</nav>
+  </nav>
+</div>

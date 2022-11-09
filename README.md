@@ -9,10 +9,10 @@ Simple web application build on Flask, which can store location data from monito
 - [x] display of map with location data (leaflet.js representation with points on map)
 - [x] Create config file with local configuration (db access, app configuration etc.)
 - [x] Configure permissions to unpublish sensitive data
-- [ ] Make path crossplatform
+- [x] Add option to store more items per user
+- [x] Make path to content crossplatform
 - [ ] Optimize code
 - [ ] Reformat time to local timezone
-- [ ] Add option to store more items per user
 - [ ] Configure rentals of the equipement
 - [ ] Add paths of equipement on the map (http://project-osrm.org/docs/v5.5.3/api/#general-options)
 
@@ -56,7 +56,7 @@ Simple web application build on Flask, which can store location data from monito
   - [ ] Prevention before SQL Injection
 - [ ] AJAX comunication
   - [ ] Filters of points
-  - [ ] Add new 
+  - [ ] Add new
 - [ ] Check resposive design
 - [ ] Check W3C standards
 - [ ] Add docker compose file or dockerfile

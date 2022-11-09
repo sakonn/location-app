@@ -110,11 +110,25 @@ window.addEventListener('DOMContentLoaded', (event) => {
   }
 
   const fileInput = document.querySelector('#equip-image-upload input[type=file]');
-  fileInput.onchange = () => {
-    if (fileInput.files.length > 0) {
-      const fileName = document.querySelector('#equip-image-upload .file-name');
-      fileName.textContent = fileInput.files[0].name;
+  if (fileInput) {
+    fileInput.onchange = () => {
+      if (fileInput.files.length > 0) {
+        const fileName = document.querySelector('#equip-image-upload .file-name');
+        fileName.textContent = fileInput.files[0].name;
+      }
     }
+  }
+
+  if (document.getElementById('carousel-demo')) {
+    bulmaCarousel.attach('#carousel-demo', {
+      slidesToScroll: 1,
+      slidesToShow: 1,
+      pagination: false,
+      navigation: false,
+      effect: 'fade',
+      autoplay: true,
+      loop: true
+    });
   }
 });
 

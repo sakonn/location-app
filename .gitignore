@@ -8,3 +8,5 @@ Python-location.PublishSettings
 
 **/.webassets-cache
 **/static/gen
+
+.DS_Store
