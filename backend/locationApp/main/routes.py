@@ -52,5 +52,5 @@ def test():
   latit = random.uniform(17, 22)
   longit = random.uniform(47.8, 49.1)
   api_key = ApiKey.query.filter(ApiKey.user_id==current_user.id, ApiKey.equipment is not None).order_by(func.random()).first()
-  res = requests.post('http://localhost:5000/api/newpoint?apikey=' + api_key.key, json={"latitude":str(latit), "longitude":str(longit)})
+  res = requests.post('http://localhost:8000/api/newpoint?apikey=' + api_key.key, json={"latitude":str(latit), "longitude":str(longit)})
   return 'success'

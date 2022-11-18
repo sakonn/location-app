@@ -14,7 +14,7 @@
             <div class="card">
               <div class="card-image">
                 <figure class="image is-4by3">
-                  <img src="{{ url_for('static', filename='equip_pics/' +equip.image_file) }}" alt="Placeholder image">
+                  <img src="{{ url_for('static', filename='equip_pics/' + equip.image_medium) }}" alt="Placeholder image">
                 </figure>
               </div>
               <div class="card-content">
@@ -28,8 +28,8 @@
               <footer class="card-footer">
                 {#
                   <a href="#" class="card-footer-item">Edit</a>
-                  <a href="{{ url_for('equip.equip_update', equip_id=equip.id) }}" class="button is-success is-small">Edit equipment</a>
-                #}
+                  #}
+                <a href="{{ url_for('equip.equip_edit', equip_id=equip.id) }}" class="card-footer-item has-text-success">Edit</a>
                 <a href="{{ url_for('equip.equip_delete', equip_id=equip.id) }}" class="card-footer-item has-text-danger">Delete</a>
               </footer>
             </div>

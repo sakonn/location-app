@@ -5,8 +5,10 @@ from wtforms.validators import DataRequired
 
 class EquipForm(FlaskForm):
   name = StringField('Equipment name', validators=[DataRequired()])
+  description = TextAreaField('Description', validators=[])
+  image = FileField('Upload image', validators=[FileAllowed(['jpg', 'png'])])
   
-  submit = SubmitField('Save key')
+  submit = SubmitField('Save equipment')
 
 #  def validate_key(self, key):
 #    user = ApiKey.query.filter_by(key=key.data).first()

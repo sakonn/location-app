@@ -119,16 +119,14 @@ window.addEventListener('DOMContentLoaded', (event) => {
     }
   }
 
-  if (document.getElementById('carousel-demo')) {
-    bulmaCarousel.attach('#carousel-demo', {
-      slidesToScroll: 1,
-      slidesToShow: 1,
-      pagination: false,
-      navigation: false,
-      effect: 'fade',
-      autoplay: true,
-      loop: true
-    });
+  const registerForm = document.getElementById("registerForm");
+  if (registerForm) {
+    registerForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      console.log(e);
+  
+      registerForm.post();
+    })
   }
 });
 

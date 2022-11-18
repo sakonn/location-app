@@ -58,7 +58,9 @@ class LocationPoint(db.Model):
 class Equipment(db.Model):
   id = db.Column(db.Integer, primary_key=True)
   name = db.Column(db.String(120), nullable=False)
-  image_file = db.Column(db.String(20), nullable=False, default='000demo_equip.jpg')
+  image_small = db.Column(db.String(20), nullable=False, default='000demo_equip.jpg')
+  image_medium = db.Column(db.String(20), nullable=False, default='000demo_equip.jpg')
+  image_large = db.Column(db.String(20), nullable=False, default='000demo_equip.jpg')
   description = db.Column(db.Text, nullable=False)
   user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
   api_key = db.relationship('ApiKey', backref='equipment_key', lazy=True)

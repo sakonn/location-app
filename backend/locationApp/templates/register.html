@@ -4,13 +4,12 @@
 
 <section class="section">
   <div class="container">
-    <form method="POST" action="/register">
+    <form method="POST" action="/register" id="registerForm">
       {{ form.hidden_tag() }}
       <fieldset class="form">
         <legend>Join tobay!</legend>
         <div class="field">
           {{ form.username.label(class='label') }}
-
 
           {% if form.username.errors %}
             <div class="control has-icons-right">
@@ -19,9 +18,11 @@
                 <i class="fas fa-exclamation-triangle"></i>
               </span>
             </div>
-            {% for error in form.username.errors %}
-              <p class="help is-danger">{{ error }}</p>
-            {% endfor %}
+            <div class="username-erros">
+              {% for error in form.username.errors %}
+                <p class="help is-danger">{{ error }}</p>
+              {% endfor %}
+            </div>
           {% else %}
             <div class="control">
               {{ form.username(class='input') }}
@@ -38,9 +39,11 @@
                 <i class="fas fa-exclamation-triangle"></i>
               </span>
             </div>
-            {% for error in form.email.errors %}
-              <p class="help is-danger">{{ error }}</p>
-            {% endfor %}
+            <div class="email-errors">
+              {% for error in form.email.errors %}
+                <p class="help is-danger">{{ error }}</p>
+              {% endfor %}
+            </div>
           {% else %}
             <div class="control">
               {{ form.email(class='input') }}
@@ -58,9 +61,11 @@
                 <i class="fas fa-exclamation-triangle"></i>
               </span>
             </div>
-            {% for error in form.password.errors %}
-              <p class="help is-danger">{{ error }}</p>
-            {% endfor %}
+            <div class="pass-erros">
+              {% for error in form.password.errors %}
+                <p class="help is-danger">{{ error }}</p>
+              {% endfor %}
+            </div>
           {% else %}
             <div class="control">
               {{ form.password(class='input') }}
@@ -78,9 +83,11 @@
                 <i class="fas fa-exclamation-triangle"></i>
               </span>
             </div>
-            {% for error in form.confimPassword.errors %}
-              <p class="help is-danger">{{ error }}</p>
-            {% endfor %}
+            <div class="confirmPass-erros">
+              {% for error in form.confimPassword.errors %}
+                <p class="help is-danger">{{ error }}</p>
+              {% endfor %}
+            </div>
           {% else %}
             <div class="control">
               {{ form.confimPassword(class='input') }}

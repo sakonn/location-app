@@ -18,19 +18,20 @@ def equip_list():
 @equip.route("/equipment/new", methods=['POST', 'GET'])
 @login_required
 def equip_new():
-  form = NewEquipForm()
+  form = EquipForm()
   if form.validate_on_submit():
     equip = Equipment(name=form.name.data, description=form.description.data, owner=current_user)
-    print(form.image)
     if form.image.data:
-      picture_file = save_picture(form.image.data)
-      equip.image_file = picture_file
+      picture_files = save_picture(form.image.data)
+      equip.image_small = picture_files[0]
+      equip.image_medium = picture_files[1]
+      equip.image_large = picture_files[2]
     db.session.add(equip)
     db.session.commit()
     flash('Your equipment has been created!', 'success')
     return redirect(url_for('equip.equip_list'))
   # image_file = url_for('static', filename="equip_pics/" + )
-  return render_template('equip_form.html', form=form, title='Hello ' + current_user.username)
+  return render_template('equip_form.html', form=form, title='Hello ' + current_user.username, form_title="Add equipment")
 
 @equip.route("/equipment/<int:equip_id>/delete", methods=['POST', 'GET'])
 @login_required
@@ -44,30 +45,24 @@ def equip_delete(equip_id):
     flash('Sorry but you are not authorized to modify this equipment', 'error')
   return redirect(url_for('equip.equip_list'))
 
-# @key.route("/key/<int:key_id>/delete", methods=['POST', 'GET'])
-# @login_required
-# def key_delete(key_id):
-#   key = ApiKey.query.get_or_404(key_id)
-#   if key.owner.id == current_user.id:
-#     db.session.delete(key)
-#     db.session.commit()
-#     flash('Your key has been deleted!', 'success')
-#   else:
-#     flash('Sorry but you are not authorized to modify this key', 'error')
-#   return redirect(url_for('key.key_list'))
-
-
-# @key.route("/key/<int:key_id>/edit", methods=['POST', 'GET'])
-# @login_required
-# def key_edit(key_id):
-#   form = KeyForm()
-#   key = ApiKey.query.get_or_404(key_id)
-#   if form.validate_on_submit():
-#     key.name = form.name.data
-#     db.session.commit()
-#     flash('Your key has been updated, you are able to use it!', 'success')
-#     return redirect(url_for('key.key_list'))
-#   elif request.method == 'GET':
-#     form.key.data = key.key
-#     form.name.data = key.name
-#   return render_template('key_form.html', form=form, title='Hello ' + current_user.username, form_title="Update key")
+@equip.route("/equipment/<int:equip_id>/edit", methods=['POST', 'GET'])
+@login_required
+def equip_edit(equip_id):
+  form = EquipForm()
+  equip:Equipment = Equipment.query.get_or_404(equip_id)
+  if form.validate_on_submit():
+    equip.name = form.name.data
+    equip.description = form.description.data
+    if form.image.data:
+      picture_files = save_picture(form.image.data)
+      equip.image_small = picture_files[0]
+      equip.image_medium = picture_files[1]
+      equip.image_large = picture_files[2]
+    db.session.commit()
+    flash('Your key has been updated, you are able to use it!', 'success')
+    return redirect(url_for('equip.equip_list'))
+  elif request.method == 'GET':
+    form.name.data = equip.name
+    form.description.data = equip.description
+    form.image.data = equip.image_medium
+  return render_template('equip_form.html', form=form, title='Hello ' + current_user.username, form_title="Update equipment")

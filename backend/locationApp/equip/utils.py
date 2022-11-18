@@ -12,6 +12,7 @@ def save_picture(form_picture):
     'm': [500, 500],
     'l': [1920, 1080]
   }
+  picutes = []
   for key, size in sizes.items():    
     output_size = (size[0], size[0])
     i = Image.open(form_picture)
@@ -19,5 +20,6 @@ def save_picture(form_picture):
     picture_fn = random_hex + '_' + key + f_ext
     picture_path = os.path.join(current_app.root_path, 'static/equip_pics', picture_fn)
     i.save(picture_path)
+    picutes.append(random_hex + '_' + key + f_ext)
 
-  return random_hex + '_m' + f_ext
+  return picutes
