@@ -13,8 +13,8 @@ def filterPoints(criteria={}):
   if 'date_from' in criteria.keys() and criteria['date_from'] is not None:
     date_from = datetime.fromtimestamp(criteria['date_from'])
   query = LocationPoint.query.filter(LocationPoint.timestamp >= date_from, LocationPoint.timestamp <= date_to, LocationPoint.user_id == current_user.id)
-  if 'equipment' in criteria.keys():
-    query = query.filter(LocationPoint.equipment == criteria['equipment'])
+  if 'equipment' in criteria.keys() and len(criteria['equipment']) > 0:
+    query = query.filter(LocationPoint.equipment.in_(criteria['equipment']))
   valid_points = query.all()
   for point in valid_points:
     equip = Equipment.query.filter(Equipment.id == point.equipment).first()

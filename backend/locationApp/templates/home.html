@@ -36,8 +36,8 @@
             <label class="label">Equipment to show</label>
             <div class="control">
               {% for tool in equipment %}
-              <label class="checkbox">
-                <input type="checkbox">
+              <label class="checkbox" for="equip-{{ tool.id }}">
+                <input type="checkbox" if="equip-{{ tool.id }}" data-filter="equip" value="{{ tool.id }}">
                 {{ tool.name }}
               </label>
               <br>

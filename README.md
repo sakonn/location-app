@@ -17,13 +17,12 @@ Simple web application build on Flask, which can store location data from monito
 - [ ] Add paths of equipement on the map (http://project-osrm.org/docs/v5.5.3/api/#general-options)
 
 #### Todo semestral project
-- [ ] 5 dynamic pages
+- [x] 5 dynamic pages
   - [x] Points map
-  - [ ] My account / keys management - merge two paths into single page to make all editor on one page
   - [x] Equipement edit page
   - [x] Equipement list page
 - [ ] 50 lines of javascript code
-  - [ ] Improve map behaviour
+  - [x] Improve map behaviour
   - [ ] Validate input on registration page with JS
 - [ ] 20 custom css rules
   - [x] 7 rules for key design
