@@ -184,7 +184,10 @@ function registerValidator() {
       } else {
         this.passConfirmError = '';
       }
-      
+      if (this.honeypot.length > 0) {
+        console.log('Spam registered!');
+        return;
+      }
       document.getElementById("registerForm").submit();
     }
   }
