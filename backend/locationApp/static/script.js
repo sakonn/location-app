@@ -63,6 +63,25 @@ class Points {
   }
 }
 
+// Source: https://stackoverflow.com/questions/46155/how-can-i-validate-an-email-address-in-javascript
+const validateEmail = (email) => {
+  return String(email)
+    .toLowerCase()
+    .match(
+      /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+    );
+};
+
+function showFormMessage(errorBox, type, message) {
+  const messageBox = document.getElementById(errorBox);
+  messageBox.innerHTML = '';
+  let msgElem = document.createElement('p');
+  msgElem.classList.add('help');
+  msgElem.classList.add('is-' + type);
+  msgElem.innerText = message;
+  messageBox.appendChild(msgElem);
+}
+
 window.addEventListener('DOMContentLoaded', (event) => {
   let mapHandler;
   if (document.getElementById('map')) {
@@ -130,17 +149,43 @@ window.addEventListener('DOMContentLoaded', (event) => {
       }
     }
   }
-
-  const registerForm = document.getElementById("registerForm");
-  if (registerForm) {
-    registerForm.addEventListener('submit', (e) => {
-      e.preventDefault();
-      console.log(e);
-  
-      registerForm.post();
-    })
-  }
 });
 
 
-
+function registerValidator() {
+  return {
+    username: '',
+    usernameError: '',
+    email: '',
+    emailError: '',
+    password: '',
+    passwordError: '',
+    passConfirm: '',
+    passConfirmError: '',
+    honeypot: '',
+    validateSubmit(e) {
+      if (validateEmail(this.email) == null) {
+        this.emailError = 'Enter vaild email. Example user@example.com';
+      } else {
+        this.emailError = '';
+      }
+      if (this.username.length < 3) {
+        this.usernameError = 'Username must be longer then 3 letters.';
+      } else {
+        this.usernameError = '';
+      }
+      if (this.password.length < 8) {
+        this.passwordError = 'Password must be longer than 8 lettrs.'
+      } else {
+        this.passwordError = '';
+      }
+      if (this.passConfirm != this.password) {
+        this.passConfirmError = 'Password must match.'
+      } else {
+        this.passConfirmError = '';
+      }
+      
+      document.getElementById("registerForm").submit();
+    }
+  }
+}

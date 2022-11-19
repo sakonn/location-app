@@ -3,7 +3,7 @@
 {% block content %}
 
 <section class="section">
-  <div class="container">
+  <div class="container" x-data="registerValidator()">
     <form method="POST" action="/register" id="registerForm">
       {{ form.hidden_tag() }}
       <fieldset class="form">
@@ -27,6 +27,9 @@
             <div class="control">
               {{ form.username(class='input') }}
             </div>
+            <div id="username-erros">
+              <p class="help is-danger" x-show="usernameError" x-text="usernameError"></p>
+            </div>
           {% endif %}
         </div>
         <div class="field">
@@ -47,6 +50,9 @@
           {% else %}
             <div class="control">
               {{ form.email(class='input') }}
+            </div>
+            <div id="email-errors">
+              <p class="help is-danger" x-show="emailError" x-text="emailError"></p>
             </div>
           {% endif %}
 
@@ -70,6 +76,9 @@
             <div class="control">
               {{ form.password(class='input') }}
             </div>
+            <div id="pass-erros">
+              <p class="help is-danger" x-show="passwordError" x-text="passwordError"></p>
+            </div>
           {% endif %}
           
         </div>
@@ -92,19 +101,25 @@
             <div class="control">
               {{ form.confimPassword(class='input') }}
             </div>
+            <div id="confirmPass-erros">
+              <p class="help is-danger" x-show="passConfirmError" x-text="passConfirmError"></p>
+            </div>
           {% endif %}
-          
         </div>
 
-        <div class="field is-grouped">
-          <div class="control">
-            {{ form.submit(class="button is-link") }}
-          </div>
+        {# Honeypot field #}
+        <div class="filed is-hidden">
+          <label for="emailConfirm">Email confirm</label>
+          <input type="input" id="emailConfirm" value="" placeholder="Confirm email" x-model="honeypot">
         </div>
-        
-        
+
       </fieldset>
     </form>
+    <div class="field is-grouped mt-3">
+      <div class="control">
+        <input class="button is-link" id="registerSubmit" name="submit" type="submit" value="Register" @click="validateSubmit">
+      </div>
+    </div>
 
     <div class="content">
       You can login here: <a href="{{ url_for('users.login') }}">Sign in</a>

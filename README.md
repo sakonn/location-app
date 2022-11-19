@@ -21,9 +21,9 @@ Simple web application build on Flask, which can store location data from monito
   - [x] Points map
   - [x] Equipement edit page
   - [x] Equipement list page
-- [ ] 50 lines of javascript code
+- [x] 50 lines of javascript code
   - [x] Improve map behaviour
-  - [ ] Validate input on registration page with JS
+  - [x] Validate input on registration page with JS
 - [ ] 20 custom css rules
   - [x] 7 rules for key design
 - [ ] 4 entites with CRUD operations
@@ -50,9 +50,9 @@ Simple web application build on Flask, which can store location data from monito
     - [ ] delete
 - [ ] validation of input on form fields on server side
   - [ ] Data type and valid value of inserted item
-  - [ ] Prevention before SQL Injection
+  - [x] Prevention before SQL Injection
 - [ ] AJAX comunication
-  - [ ] Filters of points
+  - [x] Filters of points
   - [ ] Add new
 - [ ] Check resposive design
 - [ ] Check W3C standards

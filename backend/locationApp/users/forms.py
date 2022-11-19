@@ -7,10 +7,10 @@ from flask_login import current_user
 
 
 class RegistrationForm(FlaskForm):
-  username = StringField('Username', validators=[DataRequired(), Length(min=2, max=30)])
-  email = StringField('Email', validators=[DataRequired(), Email()])
-  password = PasswordField('Password', validators=[DataRequired()])
-  confimPassword = PasswordField('Confirm password', validators=[DataRequired(), EqualTo('password')])
+  username = StringField('Username', validators=[DataRequired(), Length(min=2, max=30)], render_kw={'x-model': 'username'})
+  email = StringField('Email', validators=[DataRequired(), Email()], render_kw={'x-model': 'email'})
+  password = PasswordField('Password', validators=[DataRequired()], render_kw={'x-model': 'password'})
+  confimPassword = PasswordField('Confirm password', validators=[DataRequired(), EqualTo('password')], render_kw={'x-model': 'passConfirm'})
 
   submit = SubmitField('Register')
 
