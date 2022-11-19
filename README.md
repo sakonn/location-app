@@ -51,9 +51,9 @@ Simple web application build on Flask, which can store location data from monito
 - [ ] validation of input on form fields on server side
   - [ ] Data type and valid value of inserted item
   - [x] Prevention before SQL Injection
-- [ ] AJAX comunication
+- [x] AJAX comunication
   - [x] Filters of points
-  - [ ] Add new
+  - [x] Add new
 - [ ] Check resposive design
 - [ ] Check W3C standards
 - [ ] Add docker compose file or dockerfile

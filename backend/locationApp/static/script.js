@@ -198,6 +198,7 @@ function equipmentPage() {
     equipmentList: [],
     showModal: false,
     token: '',
+    formError: '',
     newForm: {
       name: '',
       description: '',
@@ -217,6 +218,12 @@ function equipmentPage() {
       this.equipmentList = data;
     },
     async newEquipmentCreate() {
+      if (this.newForm.name.length < 3 || this.newForm.description.length < 5) {
+        this.formError = 'Fill both fields';
+        return;
+      } else {
+        this.formError = '';
+      }
       var data = await fetch('/api/equipment/new', {
         method: "POST",
         body: JSON.stringify(this.newForm),
