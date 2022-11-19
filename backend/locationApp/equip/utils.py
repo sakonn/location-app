@@ -2,6 +2,7 @@ from flask import url_for, current_app
 import os
 import secrets
 from PIL import Image
+from locationApp.models import Equipment
 
 def save_picture(form_picture):
   random_hex = secrets.token_hex(8)
@@ -23,3 +24,18 @@ def save_picture(form_picture):
     picutes.append(random_hex + '_' + key + f_ext)
 
   return picutes
+
+def equipAjax(user_id):
+  response = []
+  equipment = Equipment.query.filter(Equipment.user_id == user_id).all()
+  for equip in equipment:
+    response.append({
+      'id': equip.id,
+      'name': equip.name,
+      'description': equip.description,
+      'image': url_for('static', filename='equip_pics/' + equip.image_medium),
+      'edit_url': url_for('equip.equip_edit', equip_id=equip.id),
+      'delete_url': url_for('equip.equip_delete', equip_id=equip.id),
+    })
+  
+  return response

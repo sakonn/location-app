@@ -192,3 +192,55 @@ function registerValidator() {
     }
   }
 }
+
+function equipmentPage() {
+  return {
+    equipmentList: [],
+    showModal: false,
+    token: '',
+    newForm: {
+      name: '',
+      description: '',
+    },
+    createNewEquip() {
+      this.showModal = true;
+    },
+    async getEquipmentList() {
+      // /api/listequip
+      var data = await fetch("/api/equipment/list", {
+        method: 'GET',
+        headers: {
+          'Accept': 'application/json',
+        },
+      }).then((response) => response.json())
+
+      this.equipmentList = data;
+    },
+    async newEquipmentCreate() {
+      var data = await fetch('/api/equipment/new', {
+        method: "POST",
+        body: JSON.stringify(this.newForm),
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+          'X-CSRFToken': this.token,
+        },
+      }).then((response) => response.json());
+      this.getEquipmentList();
+      this.showModal = false;
+    },
+    async deleteEquipment(id) {
+      var data = await fetch('/api/equipment/delete', {
+        method: "POST",
+        body: JSON.stringify({'id': id}),
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+          'X-CSRFToken': this.token,
+        },
+      }).then((response) => response.json());
+
+      this.getEquipmentList();
+    }
+  }
+}

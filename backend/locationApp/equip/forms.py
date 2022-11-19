@@ -10,11 +10,6 @@ class EquipForm(FlaskForm):
   
   submit = SubmitField('Save equipment')
 
-#  def validate_key(self, key):
-#    user = ApiKey.query.filter_by(key=key.data).first()
-#    if user:
-#      raise ValidationError('Key already exist, generate new!')
-
 class NewEquipForm(FlaskForm):
   name = StringField('Equipment name', validators=[DataRequired()])
   description = TextAreaField('Description', validators=[])

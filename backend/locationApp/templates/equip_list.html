@@ -2,53 +2,126 @@
 
 {% block content %}
 
-<section class="section">
+<section class="section" x-data="equipmentPage()" x-init="getEquipmentList(); token = '{{ csrf_token() }}';"> 
   <div class="container">
     <div class="columns is-centered">
       <div class="column is-9">
         <h2 class="title is-4">List of equipment</h2>
-        {% if equipment %}
-        <div class="columns is-multiline">
-          {% for equip in equipment %}
-          <div class="column is-4">
-            <div class="card">
-              <div class="card-image">
-                <figure class="image is-4by3">
-                  <img src="{{ url_for('static', filename='equip_pics/' + equip.image_medium) }}" alt="Placeholder image">
-                </figure>
-              </div>
-              <div class="card-content">
-                <div class="content">
-                  <h2 class="h2">{{ equip.name }}</h2>
-                  <p class="content">
-                    {{ equip.description }}
-                  </p>
+        {# 
+          {% if equipment %}
+          <div class="columns is-multiline">
+            {% for equip in equipment %}
+            <div class="column is-4">
+              <div class="card">
+                <div class="card-image">
+                  <figure class="image is-4by3">
+                    <img src="{{ url_for('static', filename='equip_pics/' + equip.image_medium) }}" alt="Placeholder image">
+                  </figure>
                 </div>
+                <div class="card-content">
+                  <div class="content">
+                    <h2 class="h2">{{ equip.name }}</h2>
+                    <p class="content">
+                      {{ equip.description }}
+                    </p>
+                  </div>
+                </div>
+                <footer class="card-footer">
+                  <a href="{{ url_for('equip.equip_edit', equip_id=equip.id) }}" class="card-footer-item has-text-success">Edit</a>
+                  <a href="{{ url_for('equip.equip_delete', equip_id=equip.id) }}" class="card-footer-item has-text-danger">Delete</a>
+                </footer>
               </div>
-              <footer class="card-footer">
-                {#
-                  <a href="#" class="card-footer-item">Edit</a>
-                  #}
-                <a href="{{ url_for('equip.equip_edit', equip_id=equip.id) }}" class="card-footer-item has-text-success">Edit</a>
-                <a href="{{ url_for('equip.equip_delete', equip_id=equip.id) }}" class="card-footer-item has-text-danger">Delete</a>
-              </footer>
             </div>
+            {% endfor %}
           </div>
-          {% endfor %}
+          {% else %}  
+            <p class="content">No equipement created</p>
+          {% endif %}
+        #}
+
+        <div class="columns is-multiline" x-show="equipmentList.length > 1">
+          <template x-for="equip in equipmentList" :key="equip.id">
+            <div class="column is-4">
+              <div class="card">
+                <div class="card-image">
+                  <figure class="image is-4by-3">
+                    <img :src="equip.image" alt="Equipment image">
+                  </figure>
+                </div>
+                <div class="card-content">
+                  <div class="content">
+                    <h2 class="h2" x-text="equip.name"></h2>
+                    <p class="content" x-text="equip.description">
+                    </p>
+                  </div>
+                </div>
+                <footer class="card-footer">
+                  <!--
+                    <a :href="equip.edit_url" class="card-footer-item has-text-success">Edit</a>
+                    <a :href="equip.delete_url" class="card-footer-item has-text-danger">Delete</a>
+                  -->
+                  <div class="card-footer-item has-text-success is-clickable">Edit</div>
+                  <div class="card-footer-item has-text-danger is-clickable" @click="deleteEquipment(equip.id)">Delete</div>
+                </footer>
+              </div>
+            </div>
+          </template>
         </div>
-        {% else %}  
-          <p class="content">No equipement created</p>
-        {% endif %}
+        <p class="content" x-show="equipmentList.length == 0">No equipment created.</p>
       </div>
       <div class="column is-1"></div>
       <div class="column is-2">
-        <a href="{{ url_for('equip.equip_new')}}" class="button is-large is-primary">New equipment</a>
+        <a href="{{ url_for('equip.equip_new')}}" class="button is-large is-primary" @click="createNewEquip(e)" title="Create redirect.">New equipment</a>
+        <div class="button is-large is-primary mt-4" @click="createNewEquip()" title="Create ajax.">Quick add</div>
       </div>
     </div>
+  </div>
 
+  <div class="modal" :class="{'is-active': showModal}">
+    <div class="modal-background" @click="showModal = false"></div>
+    <div class="modal-content">
+      <div class="box">
+        <h2 class="title is-4">Create new equipment!</h2>
+
+        <fieldset class="form">
+          <div class="field">
+            <label class="label" for="name">Equipment name</label>
+            <div class="control has-icons-right">
+              <input type="text" class="input" id="name" x-model="newForm.name">
+              <span class="icon is-small is-right">
+                <i class="fas fa-exclamation-triangle"></i>
+              </span>
+            </div>  
+          </div>
   
+          <div class="field">
+            <label class="label" for="description">Equipment description</label>
+            <div class="control has-icons-right">
+              <textarea class="textarea" id="description" x-model="newForm.description"></textarea>
+              <span class="icon is-small is-right">
+                <i class="fas fa-exclamation-triangle"></i>
+              </span>
+            </div>  
+          </div>
+
+          <div class="field is-grouped is-grouped-centered">
+            <p class="control">
+              <a class="button is-primary" @click="newEquipmentCreate()">
+                Submit
+              </a>
+            </p>
+            <p class="control">
+              <a class="button is-light" @click="showModal = false">
+                Cancel
+              </a>
+            </p>
+          </div>
+  
+        </fieldset>
+      </div>
+    </div>
+      <button class="modal-close is-large" aria-label="close" @click="showModal = false"></button>
   </div>
 </section>
 
-  
 {% endblock content %}

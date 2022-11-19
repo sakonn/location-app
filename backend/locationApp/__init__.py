@@ -3,6 +3,7 @@ from flask_bcrypt import Bcrypt
 from flask_login import LoginManager
 from locationApp.config import Config
 from flask_sqlalchemy import SQLAlchemy
+from flask_wtf.csrf import CSRFProtect
 from flask_mail import Mail
 from flask_misaka import Misaka
 from flask_assets import Environment, Bundle
@@ -16,6 +17,7 @@ login_manager.login_message_category = 'primary'
 mail = Mail()
 misaka = Misaka()
 assets = Environment()
+csrf = CSRFProtect()
 
 def create_app(config_class=Config):
   app = Flask(__name__)
@@ -35,6 +37,7 @@ def create_app(config_class=Config):
   login_manager.init_app(app)
   mail.init_app(app)
   misaka.init_app(app)
+  csrf.init_app(app)
   assets.init_app(app)
   assets.register(bundles)
 
