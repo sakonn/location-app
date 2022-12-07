@@ -36,6 +36,8 @@ class Points {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'X-CSRFToken': csrf_token,
       },
       body: JSON.stringify(data),
     })

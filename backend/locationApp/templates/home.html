@@ -54,7 +54,8 @@
 </section>
 
 <script>
-  var points = {{ points_json | tojson }}
+  var points = {{ points_json | tojson }};
+  const csrf_token = "{{ csrf_token() }}";
 </script>
   
 {% endblock content %}

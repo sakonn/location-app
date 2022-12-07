@@ -45,6 +45,7 @@ def addPoint():
 @login_required
 def listPoints():
   data = request.json
+  print(data)
   return jsonify(filterPoints(data))
 
 @main.route("/test", methods=['POST', 'GET'])
